@@ -1,0 +1,182 @@
+html, body {
+  height: 100%; /*Fixes the height to 100% of the viewport*/
+}
+body {
+  padding-top: 60px; /*50px for the height of the navbar + 37px for the offset*/
+  padding-bottom: 50px; /*50px for the height of the bottom navbar*/
+  position: relative;
+  max-width: 80%;
+  padding-left: 200px;
+}
+.container{
+    padding-left: 20px;
+    position: absolute;
+    left: 180px;
+}
+
+.navbar-offset {
+    top: 37px; /*Offsets the top navbar 37px from the top of the viewport*/
+}
+.container-fluid.scrollable {
+  height: 100%; /*Sets the scrollable area to 100% of the viewport*/
+  overflow: auto; /*Allows the scrollable area to have a scrollbar based on the height of its content*/
+  background: #ccc;
+
+}
+#wrapper {
+  padding-left: 250px;
+}
+
+#sidebar-wrapper {
+  margin-left: -250px;
+  top: 50px;
+  left: 250px;
+  width: 180px;
+  background: #2d2d30;
+  position: fixed;
+  height: 100%;
+  overflow-y: auto;
+  z-index: 1000;
+  opacity:0.9;
+}
+
+#wrapper.active {
+  padding-left: 0;
+}
+
+#wrapper.active #sidebar-wrapper {
+  left: 0;
+}
+
+#page-content-wrapper {
+  width: 100%;
+  padding-top: 70px;
+}
+
+.sidebar-nav {
+  position: absolute;
+  top: 0;
+  width: 180px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  opacity:0.9;
+}
+
+.sidebar-nav li {
+  line-height: 40px;
+}
+
+.sidebar-nav li a {
+  color: #999999;
+  display: block;
+  text-decoration: none;
+}
+
+.sidebar-nav li a span:before {
+  position: absolute;
+  left: 0;
+  color: #41484c;
+  text-align: center;
+  width: 20px;
+  line-height: 18px;
+}
+
+.sidebar-nav li a:hover,
+.sidebar-nav li.active {
+  color: #fff;
+  background: rgba(255,255,255,0.2);
+  text-decoration: none;
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+  text-decoration: none;
+}
+
+.sidebar-nav > .sidebar-brand {
+  height: 65px;
+  line-height: 60px;
+  font-size: 18px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+  color: #999999;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+  color: #fff;
+  background: none;
+}
+
+#menu-toggle {
+    text-decoration: none;
+    float: left;
+    color: #fff;
+    padding-right: 15px;
+}
+p.navbar-text{
+    color: #fff;
+}
+img#logo{
+    margin-top: -10px;
+}
+hr{
+    margin-left: 20px;
+    margin-right: 20px;
+    bottom: 0;
+    position: absolute;
+}
+footer {
+  padding-left: 15px;
+  text-align: center;
+  padding-right: 15px;
+  bottom: 0;
+  position: absolute;
+}
+/* navbar */
+.navbar {
+    margin-bottom: 0;
+    background-color: #2d2d30;
+    border: 0;
+    font-size: 13px !important;
+    letter-spacing: 4px;
+    opacity:0.9;
+}
+
+.navbar li a , .navbar .navbar-brand{ 
+    color: #d5d5d5 !important;
+}
+
+.navbar-nav li a:hover {
+    color: #fff !important;
+}
+
+.navbar-nav li.active a {
+    color: #fff !important;
+    background-color:#29292c !important;
+}
+.navbar-default .navbar-toggle {
+    border-color: transparent;
+}
+
+.open .dropdown-toggle {
+    color: #fff ;
+    background-color: #555 !important;
+}
+
+.dropdown-menu li a {
+    color: #000 !important;
+}
+
+.dropdown-menu li a:hover {
+    background-color: red !important;
+}
+/*navbar image*/
+.navbar .brand { 
+    max-height: 40px;
+    max-width: 30%; 
+    overflow: visible;
+    padding-top: 0;
+    padding-bottom: 0; 
+}

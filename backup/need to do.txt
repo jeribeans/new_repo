@@ -1,0 +1,20 @@
+Create JO - follow create PO conditions (to add product name, quantity, and PO ID to order details)
+
+
+
+submit to create PO/JO confirm (insert to PO/JO table)
+
+Confirm PO/PO - view PO/JO details (submit to order detail table)
+Add PO/JO order details (same ID as PO/JO)
+
+
+
+Shipping slip - view PO/JO details, view PO/JO order details
+delivery receipt - view PO/JO details, view PO/JO order details
+
+display result (query for customer name separate from query (while loop) products and quantity[order details])
+
+print and save files (PO/JO)
+
+
+Raw material
