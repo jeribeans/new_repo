@@ -27,7 +27,11 @@ $row = mysqli_fetch_array($query2,MYSQLI_ASSOC);
 //         header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/adminpage.php");
 // } 
 
-echo key($_POST['submit']); // Prints, for example, 28
+if(isset($_POST['submit'])){
+    echo key($_POST['submit']); // Prints, for example, 28
+    
+}
+
 
 
 

@@ -27,13 +27,45 @@ $row = mysqli_fetch_array($query2,MYSQLI_ASSOC);
 //         header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/adminpage.php");
 // } 
 
-echo key($_POST['submit'])." submit";
-?><br><?php
-echo $_POST['startDate']." startDate";
-?><br><?php
-echo $_POST['endDate']." endDate";
+$getEmployee = mysqli_query($conn, "SELECT * FROM user");
+        $getTime = mysqli_query($conn, "SELECT * FROM timeCheck");
+        
+                        
+        $resultNo = mysqli_num_rows($getEmployee);
 
 
+
+for ($i = 0; $i < $resultNo ; $i++) {
+   
+
+
+   if(isset($_POST['submit'+ $i])){
+    echo $i;
+       
+    }
+}
+
+
+
+
+
+// if(isset($_POST['submit'])){
+//     echo key($_POST['submit'])." submit";
+//     ?><br><?php
+
+//     echo $_POST['startDate']." startDate";
+//     ?><br><?php
+
+//     $testid = mysqli_real_escape_string($conn, key($_POST['employeeid']));
+//     echo $testid." ID";
+
+    
+//     ?><br><?php
+
+//     $testname = mysqli_real_escape_string($conn, key($_POST['employeeName']));
+//     echo $testname." name";
+       
+// }
 
 ?>
 
@@ -65,6 +97,12 @@ echo $_POST['endDate']." endDate";
                                 <div class="col-sm-12 col-md-10 col-md-offset-1">
                         <h3> All Employees </h3>
                         <table class="table table-hover table-striped table-condensed table-bordered" >
+                            <col width="70"> 
+                                <col width="200"> 
+                                    <col width="50">
+                                        <col width="100">
+                                            <col width="05">
+                                                <col width="80"> 
                                 <thead>
                                         <tr>
                                                 <th>ID No</th>
@@ -99,9 +137,13 @@ echo $_POST['endDate']." endDate";
                         <div style="overflow-x:auto;">
                         <tbody class="table table-striped">
                                         <tr>
-                                                <td><?php echo $employeeID;?></td>
-                                                <td><?php echo $name;?></a></td>
-                                                <td><?php echo $department;?></td>
+                                                <!-- <?php echo $employeeID;?> -->
+                                                <td><input class="form-control" type="text" name="employeeid['.$i.']" value="<?php echo $employeeID;?>" readonly></td>
+                                                
+                                                <td><input class="form-control" type="text" name="employeeName['.$i.']" value="<?php echo $name;?>" readonly></td>
+                                                <td><input class="form-control" type="text" name='employeeDepartment['.$i.']' value="<?php echo $department;?>" readonly></td>
+                                                <!-- <td><?php echo $name;?></td>    
+                                                <td><?php echo $department;?></td> -->
                                                 <td>
                                                         <select class="form-control" id="shift">
                                                         <option value="" disabled selected>Select Shift</option>
