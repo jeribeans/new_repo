@@ -27,7 +27,11 @@ $row = mysqli_fetch_array($query2,MYSQLI_ASSOC);
 //         header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/adminpage.php");
 // } 
 
-echo key($_POST['submit']); // Prints, for example, 28
+echo key($_POST['submit'])." submit";
+?><br><?php
+echo $_POST['startDate']." startDate";
+?><br><?php
+echo $_POST['endDate']." endDate";
 
 
 
@@ -73,11 +77,15 @@ echo key($_POST['submit']); // Prints, for example, 28
                                         </tr>
                                 </thead>
                         <?php
+                        
                         if($resultNo > 0){
                                 
                                
                                 $counter=0;
+                                $i = 0;
+
                                 while($row = mysqli_fetch_assoc($getEmployee)){
+                                    
                                       ?>  <form action="<?php echo $_SERVER['PHP_SELF']; ?>" id="addUserForm" method="post"><?php
                                         $row2 = mysqli_fetch_assoc($getTime);
                                                                                 
@@ -106,33 +114,27 @@ echo key($_POST['submit']); // Prints, for example, 28
                                                 <td> 
                                                         <div class="form-group input-group">
                                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                                                <input class="form-control" type="date"  name='startDate<?=$counter?>' placeholder="Start Date">          
+                                                                <?php echo '<input class="form-control" type="date"  name="startDate" placeholder="End Date"/>';?>
+                                                                                      
                                                         </div>
                                                 </td>
 
                                                 <td>
                                                         <div class="form-group input-group">
                                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                                                <input class="form-control" type="date"  name='endDate<?=$counter?>' placeholder="End Date"/>     
+                                                                <?php echo '<input class="form-control" type="date"  name="endDate" placeholder="End Date"/>';?>
+                                                                     
                                                         </div>
                                                 </td>
 
                                                 <td>
-                                                      
-                                                      <?php 
-
-                                                        for ($i = 0; $i < $resultNo ; $i++) {
-                                                                echo '<input type="submit" name="submit['.$i.']" class="btn btn-def btn-block" value="Set" />';
-                                                        }
-
-                                                      ?>
-                                                      
-
+                                                    <?php echo '<input type="submit" name="submit['.$i.']" class="btn btn-def btn-block" value="Set" />';?>
                                                 </td>
                                         </tr>
 
                 <?php 
                                         $counter++;
+                                        $i++;
                                         }
                                 }
                         }
