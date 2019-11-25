@@ -11,22 +11,15 @@ if ($_SESSION['department']!='NOC'){
 $userID = $_SESSION['check'];
 $firstname = $_SESSION['firstname'];
 $lastname = $_SESSION['lastname'];
-$date = $_SESSION['date'];
+// $date = $_SESSION['date'];
 $status = "Logged in";
 
 
-$sql = "INSERT INTO timeCheck (login, status, user_ID) VALUES('$date','$status', '$userID')";
-$query = mysqli_query($conn,$sql);
 
-$sql2 = "SELECT * FROM timeCheck WHERE login = '$date' AND status = '$status'";
-$query2 = mysqli_query($conn,$sql2);
 
-$row = mysqli_fetch_array($query2,MYSQLI_ASSOC);
 
-$_SESSION['checkID'] = $row['check_ID'];
-$_SESSION['login_time'] = $row['login'];
-$_SESSION['status'] = $row['status'];
-$_SESSION['userID'] = $row['user_ID'];
+
+
 ?>
 
 <style type="text/css"><?php include('includes/common.css'); ?></style>
@@ -40,7 +33,7 @@ $_SESSION['userID'] = $row['user_ID'];
                 // echo $login;
                 // echo $status;
                 // echo $userID; ?>
-        <h4> Log in time: </h4> <?php echo $date;?>
+
 
         
         <?php

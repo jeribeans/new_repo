@@ -6,6 +6,7 @@ $sql = "SELECT * FROM user WHERE employee_ID = '$getID'";
 $query = mysqli_query($conn,$sql);
 $row = mysqli_fetch_array($query,MYSQLI_ASSOC);
 
+
 $user = $row['user_ID'];    
 $name = $row['first_name'];
 $middlename = $row['middle_name'];
@@ -16,7 +17,7 @@ $employeeID = $row['employee_id'];
 
 if (isset($_POST['submit'])){
 
-
+  $iduser =mysqli_real_escape_string($conn, $_POST['user']); 
   $fname = mysqli_real_escape_string($conn, $_POST['firstname']);
   $mname = mysqli_real_escape_string($conn, $_POST['middlename']);
   $lname = mysqli_real_escape_string($conn, $_POST['lastname']);
@@ -24,7 +25,6 @@ if (isset($_POST['submit'])){
   $email = mysqli_real_escape_string($conn, $_POST['emailAddress']);
   $id = mysqli_real_escape_string($conn, $_POST['IDnumber']);
   $password = mysqli_real_escape_string($conn, $_POST['password1']);
-  $confirm = mysqli_real_escape_string($conn, $_POST['password2']);
   $dept = mysqli_real_escape_string($conn, $_POST['department']);
 
   if ($dept == "Administrator"){
@@ -42,22 +42,29 @@ if (isset($_POST['submit'])){
 
   if(empty($password)){
 
- 
-    $sql = "UPDATE user SET employee_id ='".$id."', first_name ='".$fname."', middle_name ='".$mname."', last_name ='".$lname."', email ='".$email."', contact_num ='".$contact."', department ='".$department."' WHERE user_id = '".$user."' ";
-    $query = mysqli_query($conn,$sql);
+    // $query = mysql_query("UPDATE article set com_count = " . $comments_count . " WHERE article_id = " . $art_id);
 
-    ?> <script> alert ("User Information Successfuly Updated!"); </script>?><?php
+ 
+    $sql = "UPDATE user SET employee_id = '".$id."', first_name ='".$fname."', middle_name ='".$mname."', last_name ='".$lname."', email ='".$email."', contact_num ='".$contact."', department ='".$department."' WHERE user_id = '".$iduser."' ";
+    $query = mysqli_query($conn,$sql);
     
     header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/editUser.php");
+  }
+    else{
+
+      if(!empty($password)){
+        $sql = "UPDATE user SET employee_id = '".$id."', first_name ='".$fname."', middle_name ='".$mname."', last_name ='".$lname."', password ='".$password."', email ='".$email."', contact_num ='".$contact."', department ='".$department."' WHERE user_id = '".$iduser."' ";
+        $query = mysqli_query($conn,$sql);
     
-    
-     
+        header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/editUser.php");
+      }
+    }
 
   }
  
 
 
-  }
+  
 
 ?>
 
@@ -94,7 +101,8 @@ if (isset($_POST['submit'])){
           <label for="sel1">Employee Name:</label>
           <div class="form-group input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-            <input class="form-control" type="text" name='firstname' value="<?php echo $name; ?>" required="true">          
+            <input class="form-control" type="text" name='firstname' value="<?php echo $name; ?>" required="true">
+            <input class="form-control" type="hidden" name='user' value="<?php echo $user; ?>">                    
           </div>
 
           <div class="form-group input-group">
@@ -132,10 +140,6 @@ if (isset($_POST['submit'])){
             <input class="form-control" type="password" name='password1' placeholder="Password">          
           </div>
 
-          <div class="form-group input-group">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-            <input class="form-control" type="password" name='password2' placeholder="Re-enter Password">          
-          </div>
 
           <div class="form-group">
                 <label for="sel1">Department:</label>

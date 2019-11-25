@@ -1,0 +1,110 @@
+1. late and less than 9 hours, undertime
+
+User
+
+Name:
+ID:
+Password:
+Department
+Shift
+Email
+Contact number
+
+
+
+
+
+2. current time < 9 hours, undertime
+
+3. on-time and == 9 hours, log out
+
+4. on-time and >= 10 hours, overtime
+
+5. 
+
+
+date today
+
+checkdate = date today + 1 day
+
+time
+
+
+$shift == "Morning" && $time < "05:30:00"
+
+
+
+
+Morning
+
+if shift = morning & time is more than 9 hours & time is less than 10 hours and getdate = date (logout)
+
+if shift = morning & time is less than 9 hours getdate = date (undertime)
+
+if shift = morning & getdate = checkdate (overtime)
+
+if shift = morning & time is more than 10 hours & getdate = date (overtime)
+
+
+Mid
+
+if shift = mid & time is more than 9 hours & time is less than 10 hours and getdate = date (logout)
+
+if shift = mid & time is less than 9 hours getdate = date (undertime)
+
+if shift = mid & getdate = checkdate (overtime)
+
+if shift = mid & time is more than 10 hours & getdate = date (overtime)
+
+
+
+GY
+
+
+*how to check time
+
+* how to compare time (if in between or if below required)
+
+if shift = GY & get_login_time is 21:00:00 & get_logout_time is 06:00:00 and getdate = checkdate (log out)
+
+if shift = GY & time is less than 9 hours & getdate = date today (undertime)
+
+if shift = GY & time is more than 10 hours & getdate = checkdate (overtime)
+
+
+
+?> "<script type='text/javascript'>alert("Thank you,<?=$firstname?> <?=$lastname?>! You have successfully Logged out."+"\n"+"Log out Date: <?=$date?>"+"\n"+"Log out time: <?=$time?>");
+					window.location='index.php';
+					</script>";
+					<?php
+
+					$sql6 = "UPDATE timecheck SET logout_date ='".$date."', logout_time ='".$time."', status ='Logged out' WHERE status = 'Logged in' AND user_ID = '".$row5['user_ID']."' ";
+        			$query6 = mysqli_query($conn,$sql6);
+					session_destroy();    
+        			exit();
+
+
+
+
+     View request
+
+     1. ID (link)
+     2. Name
+     3. Department
+     4. Request type (SL, VL, etc.)
+
+     View details (Form not editable)
+
+     1. Name
+     2. Request date
+     3. Start date
+     4. end date
+     5. leave type (SL, VL)
+     6. reason
+      approve or decline
+
+      update request table status (either pending, approved, declined)
+
+
+      
+

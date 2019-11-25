@@ -3,22 +3,17 @@
             <ul class="sidebar-nav nav">
                 
                 <li>
-                    <a href="viewattendance.php">
-                        <span>View Attendance</span>
+                    <a href="homepage.php">
+                        <span>Home</span>
                     </a>
                 </li>
 
                 <li>
-                    <a href="addproducts.php">
-                        <span>Request Change Info</span>
-                    </a>
-                </li>
-                
-                <li>
-                    <a href="createsupplierpurchaseorder.php">
+                    <a href="requestLeave.php">
                         <span>Request SL/VL</span>
                     </a>
-                </li>
+                </li>            
+                
 
             </ul>
         </nav>

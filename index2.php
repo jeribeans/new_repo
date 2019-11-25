@@ -31,14 +31,32 @@ require_once('includes/header.php'); ?>
       } 
 
       elseif ($row['department'] == 'NOC'){
-
+      $_SESSION["dept_check"] = "emp";
       $_SESSION['check'] = $row['user_ID'];
 			$_SESSION['username'] = $row['employee_ID'];
 			$_SESSION['firstname'] = $row['first_name'];
 			$_SESSION['lastname'] = $row['last_name'];
       $_SESSION['department'] = $row['department'];
       
-      header('Location:viewattendance.php');
+      header('Location:employeepage.php');
+    }
+    elseif ($row['department'] == 'CS' ){
+      $_SESSION["dept_check"] = "emp";
+      $_SESSION['check'] = $row['user_ID'];
+      $_SESSION['username'] = $row['employee_ID'];
+      $_SESSION['firstname'] = $row['first_name'];
+      $_SESSION['lastname'] = $row['last_name'];
+      $_SESSION['department'] = $row['department'];
+      header('Location:employeepage.php');
+    }
+    elseif($row['department'] == 'FS' ){
+      $_SESSION["dept_check"] = "emp";
+      $_SESSION['check'] = $row['user_ID'];
+      $_SESSION['username'] = $row['employee_ID'];
+      $_SESSION['firstname'] = $row['first_name'];
+      $_SESSION['lastname'] = $row['last_name'];
+      $_SESSION['department'] = $row['department'];
+      header('Location:employeepage.php');
     }
      else{
      	header('Location:index2.php');	
