@@ -53,6 +53,7 @@ if (isset($_POST['submit'])){
     else{
 
       if(!empty($password)){
+        $password = md5($password);
         $sql = "UPDATE user SET employee_id = '".$id."', first_name ='".$fname."', middle_name ='".$mname."', last_name ='".$lname."', password ='".$password."', email ='".$email."', contact_num ='".$contact."', department ='".$department."' WHERE user_id = '".$iduser."' ";
         $query = mysqli_query($conn,$sql);
     

@@ -1,8 +1,8 @@
 <?php require_once('includes/header.php'); 
 
-if ($_SESSION['department']!='NOC'){
+ if ($_SESSION['dept_check']!="emp") 
         header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/index2.php");
-}
+
 
 $userID = $_SESSION['check'];
 $date = date("Y:m:d");
@@ -13,7 +13,7 @@ $status = "Logged in";
 
 
 
-$sql = "SELECT * FROM user WHERE user_ID = '$employeeRequestID'";
+$sql = "SELECT * FROM user WHERE user_ID = '$userID'";
 $query = mysqli_query($conn,$sql);
 $row = mysqli_fetch_array($query,MYSQLI_ASSOC);
 
@@ -71,23 +71,31 @@ if (isset($_POST['approve'])){
             <input class="form-control" type="text" name='firstname' value="<?php echo $name. " ".$last; ?>" required="true" >          
           </div>
 
-          <label for="sel1">Leave Type:</label>
-          <div class="form-group input-group">
-            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-            <input class="form-control" type="text" name='firstname' placeholder="Leave Type" required="true" >          
-          </div>
-
-          <label for="sel1">Requested Date of Leave:</label>
           
-          <div class="form-group input-group">
-          <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-            <input class="form-control" type="calendar" name='startDate'  required="true" >          
-          </div>
-          <label for="sel1">End Date:</label>
+           <div class="form-group">
+            <label for="sel1">Leave Type:</label>
+
+            <select class="form-control" name="department" required="true">
+              <option value="" disabled selected>Select Leave Type</option>
+              <option>Sick Leave</option>
+              <option>Vacation Leave</option>
+              <option>Maternity Leave</option>
+              <option>Paternity Leave</option>
+            </select>
+            </div> 
+
+          <label for="sel1">Start Date of Leave:</label>
           
           <div class="form-group input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-            <input class="form-control" type="calendar" name='endDate'  required="true" >          
+            <input class="form-control" type="date" name='endDate'  required="true" >          
+          </div>
+
+          <label for="sel1">End Date of Leave:</label>
+          
+          <div class="form-group input-group">
+            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+            <input class="form-control" type="date" name='endDate'  required="true" >          
           </div>
 
           <label for="sel1">Reason:</label>
@@ -99,12 +107,10 @@ if (isset($_POST['approve'])){
 
 
           <div class="form-group">
-            <input type="submit" name="approve" class="btn btn-def btn-block" value="Approve" />
+            <input type="submit" name="submit" class="btn btn-def btn-block" value="Submit" />
           </div>
 
-          <div class="form-group">
-            <input type="submit" name="decline" class="btn btn-def btn-block" value="Decline" />
-          </div>
+        
 
         </form>
       </div>  

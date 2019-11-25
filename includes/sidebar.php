@@ -3,7 +3,7 @@
             <ul class="sidebar-nav nav">
                 
                 <li>
-                    <a href="homepage.php">
+                    <a href="employeepage.php">
                         <span>Home</span>
                     </a>
                 </li>
