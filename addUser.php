@@ -1,24 +1,29 @@
 <?php require_once('includes/header.php'); 
 
-// $userID = $_SESSION['check'];
-// $firstname = $_SESSION['firstname'];
-// $lastname = $_SESSION['lastname'];
-$date = date("Y:m:d");
-$time = date("H:i:s");
-$status = "Logged in";
+$userID = $_SESSION['check'];
+$username = $_SESSION['username'];
+$first_name = $_SESSION['firstname'];
+$last_name = $_SESSION['lastname'];
+$department = $_SESSION['department'];
+
+if ($_SESSION['department']!='Admin'){
+    header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/index.php");
+} 
+    
+include('includes/navbar.php');
+include('includes/adminsidebar.php'); 
 
 ?>
+
+
+
+
+
 
 
 <LEGEND><h2>Add New Employee</h2></LEGEND>
-
-<?php 
- if ($_SESSION['department']!='Admin') 
-        header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/index.php");
-?>
 <style type="text/css"><?php include('includes/common.css'); ?></style>
-<?php include('includes/navbar.php'); ?>
-<?php include('includes/adminsidebar.php'); ?>
+
 
 <div class="container-fluid">
 

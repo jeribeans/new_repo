@@ -59,7 +59,7 @@ require_once('includes/header.php'); ?>
       header('Location:employeepage.php');
     }
      else{
-     	header('Location:index2.php');	
+     	?> <script> alert ("Incorrect username or Password!")</script><?php
      }
 
 	}

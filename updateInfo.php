@@ -1,6 +1,22 @@
 <?php require_once('includes/header.php'); 
 
+$userID = $_SESSION['check'];
+$username = $_SESSION['username'];
+$first_name = $_SESSION['firstname'];
+$last_name = $_SESSION['lastname'];
+$department = $_SESSION['department'];
+
+if ($_SESSION['department']!='Admin'){
+    header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/index.php");
+} 
+    
+include('includes/navbar.php');
+include('includes/adminsidebar.php'); 
+
+
 $getID  = $_GET['IDval'];
+
+
 
 $sql = "SELECT * FROM user WHERE employee_ID = '$getID'";
 $query = mysqli_query($conn,$sql);
@@ -72,17 +88,8 @@ if (isset($_POST['submit'])){
 
 <LEGEND><h2>Update Employee Information</h2></LEGEND>
 
-<?php
 
-
-?>
-<?php 
- if ($_SESSION['department']!='Admin') 
-        header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/index.php");
-?>
 <style type="text/css"><?php include('includes/common.css'); ?></style>
-<?php include('includes/navbar.php'); ?>
-<?php include('includes/adminsidebar.php'); ?>
 
 <div class="container-fluid">
 

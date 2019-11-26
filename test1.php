@@ -73,129 +73,51 @@ for ($i = 0; $i < $resultNo ; $i++) {
 
 <div class="container-fluid">
 	
-        <legend><h2>Set Employee Shifts</h2></legend>	
+        <legend><h2>Calendar Test</h2></legend>	
 
         
+      
+
+
+
+
+<?php
+$date = date('d M Y');
+$m = date('m');
+$M = date('F');
+$y = date('Y');
+$d=cal_days_in_month(CAL_GREGORIAN,$m,$y);
+echo "There are $d days in $M $y";
+echo "<br>";
         
-        <?php
-        $getEmployee = mysqli_query($conn, "SELECT * FROM user");
-        $getTime = mysqli_query($conn, "SELECT * FROM timeCheck");
-        
-                        
-        $resultNo = mysqli_num_rows($getEmployee);
-        
-        if (!$resultNo){
-                echo 'Sorry, no resutls were found';
-        } else{
-                ?>
+
+
+$cols = $d;
+$rows = 3;
+
+for($i = 1; $i <=  date('t'); $i++)
+{
+   // add the date to the dates array
+   echo $dates[] = date('M') . "-" . str_pad($i, 2, '0', STR_PAD_LEFT). " ";
+}
+
+
+$table = "<table class='table table-hover table-striped table-condensed table-bordered'>";
+for($i=0;$i<$rows;$i++){
+   $table .= "<tr>";
+      for($j=0;$j<$cols;$j++)
+        $table .= "<td> Insert Names Here</td>";
+   $table .= "</tr>";
+}
+$table .= "</table>";
 
 
 
-        <div class="container">
-                <div class="row">
-                        <div class="Absolute-Center is-Responsive">
-                                <div class="col-sm-12 col-md-10 col-md-offset-1">
-                        <h3> All Employees </h3>
-                        <table class="table table-hover table-striped table-condensed table-bordered" >
-                            <col width="70"> 
-                                <col width="200"> 
-                                    <col width="50">
-                                        <col width="100">
-                                            <col width="05">
-                                                <col width="80"> 
-                                <thead>
-                                        <tr>
-                                                <th>ID No</th>
-                                                <th>Name</th>
-                                                <th>Department</th>                                                
-                                                <th>Shift</th>
-                                                <th>Start Date</th>
-                                                <th>End Date</th>
-                                                <th>Schedule</th>
-                                        </tr>
-                                </thead>
-                        <?php
-                        
-                        if($resultNo > 0){
-                                
-                               
-                                $counter=0;
-                                $i = 0;
 
-                                while($row = mysqli_fetch_assoc($getEmployee)){
-                                    
-                                      ?>  <form action="<?php echo $_SERVER['PHP_SELF']; ?>" id="addUserForm" method="post"><?php
-                                        $row2 = mysqli_fetch_assoc($getTime);
-                                                                                
-                                        $employeeID = $row['employee_id'];
-                                        $name = $row['first_name']." ".$row['middle_name']." ".$row['last_name'];
-                                        $department = $row['department'];
-
-                                        
-                                        
-                                        ?>
-                        <div style="overflow-x:auto;">
-                        <tbody class="table table-striped">
-                                        <tr>
-                                                <!-- <?php echo $employeeID;?> -->
-                                                <td><input class="form-control" type="text" name="employeeid['.$i.']" value="<?php echo $employeeID;?>" readonly></td>
-                                                
-                                                <td><input class="form-control" type="text" name="employeeName['.$i.']" value="<?php echo $name;?>" readonly></td>
-                                                <td><input class="form-control" type="text" name='employeeDepartment['.$i.']' value="<?php echo $department;?>" readonly></td>
-                                                <!-- <td><?php echo $name;?></td>    
-                                                <td><?php echo $department;?></td> -->
-                                                <td>
-                                                        <select class="form-control" id="shift">
-                                                        <option value="" disabled selected>Select Shift</option>
-                                                        <option>Morning Shift</option>
-                                                        <option>Mid-Day Shift</option>
-                                                        <option>GY Shift</option>
-                                                        </select>                                                
-                                                </td>
-
-                                                <td> 
-                                                        <div class="form-group input-group">
-                                                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                                                <?php echo '<input class="form-control" type="date"  name="startDate" placeholder="End Date"/>';?>
-                                                                                      
-                                                        </div>
-                                                </td>
-
-                                                <td>
-                                                        <div class="form-group input-group">
-                                                                <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-                                                                <?php echo '<input class="form-control" type="date"  name="endDate" placeholder="End Date"/>';?>
-                                                                     
-                                                        </div>
-                                                </td>
-
-                                                <td>
-                                                    <?php echo '<input type="submit" name="submit['.$i.']" class="btn btn-def btn-block" value="Set" />';?>
-                                                </td>
-                                        </tr>
-
-                <?php 
-                                        $counter++;
-                                        $i++;
-                                        }
-                                }
-                        }
-                
-                ?>
-                        </tbody>
-                </table>        
+echo $table;
 
 
-                  
-                </form>
-                        </div>    
-                </div>
-        </div>
-
-
-                
-                        
-
+?>          
 
 </div>
 <?php include('includes/footer.php'); ?>

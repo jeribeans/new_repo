@@ -1,12 +1,17 @@
 <?php require_once('includes/header.php'); 
 
 $userID = $_SESSION['check'];
+$username = $_SESSION['username'];
+$first_name = $_SESSION['firstname'];
+$last_name = $_SESSION['lastname'];
+$department = $_SESSION['department'];
 
-$date = date("Y:m:d");
-$time = date("H:i:s");
-$status = "Logged in";
-
-
+if ($_SESSION['department']!='Admin'){
+    header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/index.php");
+} 
+    
+include('includes/navbar.php');
+include('includes/adminsidebar.php'); 
 
 ?>
 
@@ -15,13 +20,8 @@ $status = "Logged in";
 <LEGEND><h2>Admin Homepage</h2></LEGEND>
 
 
-<?php 
- if ($_SESSION['department']!='Admin') 
-        header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/index.php");
-?>
 <style type="text/css"><?php include('includes/common.css'); ?></style>
-<?php include('includes/navbar.php'); ?>
-<?php include('includes/adminsidebar.php'); ?>
+
 
 <div class="container-fluid">
     <div class="container-fluid">
@@ -78,12 +78,13 @@ $status = "Logged in";
 </div>
 
 
-<!-- 
+
 <div class="container-fluid">
     <div class="container-fluid">
     
-    <h3>View Schedule:</h3>     
-     
+    <h3>Schedule as of <?php echo date('F Y')?>:</h3>     
+
+<!--      
     <?php
     $getSchedule = mysqli_query($conn, "SELECT *    FROM request where status = 'pending'");
     

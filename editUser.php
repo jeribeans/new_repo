@@ -1,27 +1,17 @@
 <?php require_once('includes/header.php'); 
-include('includes/navbar.php');
-include('includes/adminsidebar.php');
-
-
-if ($_SESSION['department']!='Admin'){
-        header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/index.php");
-}
-        
 
 $userID = $_SESSION['check'];
+$username = $_SESSION['username'];
+$first_name = $_SESSION['firstname'];
+$last_name = $_SESSION['lastname'];
+$department = $_SESSION['department'];
 
-$date = date("H:m:s");
-$status = "Logged in";
-
-
-$sql = "INSERT INTO timeCheck (login, status, user_ID) VALUES('$date','$status', '$userID')";
-$query = mysqli_query($conn,$sql);
-
-$sql2 = "SELECT * FROM timeCheck";
-$query2 = mysqli_query($conn,$sql2);
-
-$row = mysqli_fetch_array($query2,MYSQLI_ASSOC);
-
+if ($_SESSION['department']!='Admin'){
+    header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/index.php");
+} 
+    
+include('includes/navbar.php');
+include('includes/adminsidebar.php'); 
 
 ?>
 
@@ -44,12 +34,10 @@ $row = mysqli_fetch_array($query2,MYSQLI_ASSOC);
         } else{
                 ?>
 
-
-
-        <div class="container">
+        <!-- <div class="container"> -->
                 <div class="row">
                         <div class="Absolute-Center is-Responsive">
-                                <div class="col-sm-12 col-md-10 col-md-offset-1">
+                                <div class="col-sm-12 col-md-10 col-md-offset-0">
                         <h3> All Employees </h3>
                         <table class="table table-hover table-striped table-condensed table-bordered" >
                                 <thead>
@@ -58,7 +46,7 @@ $row = mysqli_fetch_array($query2,MYSQLI_ASSOC);
                                                 <th>Name</th>
                                                 <th>Email</th>
                                                 <th>Contact Number</th>
-                                                <th>Department</th>                                                
+                                                <th>Department</th>
                                         </tr>
                                 </thead>
                                 

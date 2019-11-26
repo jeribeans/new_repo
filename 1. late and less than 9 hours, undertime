@@ -108,3 +108,12 @@ if shift = GY & time is more than 10 hours & getdate = checkdate (overtime)
 
       
 
+
+SELECT sched_Date, user_ID, shift_ID, MAX(created_at) FROM schedule GROUP BY sched_Date, user_ID, shift_ID;
+SELECT DISTINCT(sched_Date), user_ID, MAX(shift_id), MAX(created_at) FROM schedule GROUP BY sched_Date,user_ID;
+
+SELECT sched_Date, user_ID, shift_ID, created_at FROM schedule WHERE created_at IN (SELECT MAX(created_at) FROM schedule GROUP BY sched_Date, user_ID);
+
+SELECT * FROM schedule WHERE created_at IN (SELECT MAX(created_at) FROM schedule GROUP BY sched_Date, user_ID);
+
+SELECT B.* FROM (select sched_Date, max(created_at) created_at from schedule GROUP BY sched_Date) A INNER JOIN schedule B USING (sched_Date,created_at);
