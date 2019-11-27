@@ -20,80 +20,10 @@ $getTime = mysqli_query($conn, "SELECT * FROM timeCheck");
                                 
 $resultNo = mysqli_num_rows($getEmployee);
 
-// if (isset($_POST['submit'])){
-//         header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/adminpage.php");
-// } 
-
-/*if(isset($_POST['submit'])){
-     
-    
-     for ($i = 0; $i < $resultNo ; $i++) {
-        echo key($_POST['submit']); // Prints, for example, 28
-        echo key($_POST['endDate']);
-
-     }
-
-}*/
-
-// if(isset($_POST['submit'])){
-
-
-//         $itr=0;
-//         while($resultNo > $itr){
-
-//                 $edate = "endDate" . $itr;
-//                 $sdate = "startDate" . $itr;
-//                 $shift = "shift" . $itr;
-//                 $name = "name" . $itr;
-//                 $empID = "empID" . $itr;
-//                 $usrID = "usrID" . $itr;
-//                 $dept = "dept" . $itr;
-
-
-//                 $edate = $_POST[$edate];
-//                 $sdate = $_POST[$sdate];
-//                 $shift = $_POST[$shift];
-//                 $empID = $_POST[$empID];
-//                 $usrID = $_POST[$usrID];
-//                 $name = $_POST[$name];
-//                 $dept = $_POST[$dept];
-
-//                 echo $usrID . " " . $empID . " " . $name . " " . $dept . " " . " " . $sdate . " to " . $edate . " " . $shift;
-//                 echo '<br>';
-
-
-//                 if($shift == "Morning Shift"){
-//                         $shiftID = 1;
-
-//                 } else if ($shift == "Mid-Day Shift"){
-//                         $shiftID = 2;
-//                 }else {
-//                         $shiftID = 3;
-//                 }
-
-//                 $start_date = $sdate;
-//                 $end_date = $edate;
-
-//                 $created_at = date("Y:m:d H:i:s");
-                 
-
-//                 while (strtotime($start_date) <= strtotime($end_date)) {
-//                         echo "$start_date". " ";
-
-//                         $sql = "INSERT INTO schedule (sched_date, created_at, user_ID, shift_ID) VALUES('$start_date', '$created_at','$usrID', '$shiftID')";
-        
-//                         $query = mysqli_query($conn,$sql);
-
-//                         $start_date = date ("Y-m-d", strtotime("+1 days", strtotime($start_date)));
-                        
-//                 }
-//         }
-//         $itr++;
-// }
-
 
 $itr=0;
 while($resultNo > $itr){
+
     $submit = "submit" . $itr;
 
     if(isset($_POST[$submit])){
@@ -129,13 +59,36 @@ while($resultNo > $itr){
         $start_date = $sdate;
         $end_date = $edate;
         $created_at = date("Y:m:d H:i:s");
-             
-        while (strtotime($start_date) <= strtotime($end_date)) {
-            echo "$start_date". " ";
-            $sql = "INSERT INTO schedule (sched_date, created_at, user_ID, shift_ID) VALUES('$start_date', '$created_at','$usrID', '$shiftID')";
-            $query = mysqli_query($conn,$sql);
-            $start_date = date ("Y-m-d", strtotime("+1 days", strtotime($start_date)));
+
+        //Checks if there are already existing scheduled dates in the DB
+        $getSchedule = mysqli_query($conn, "SELECT * FROM schedule where sched_Date ='$start_date' AND user_ID = '$usrID'");
+        $resultNo2 = mysqli_num_rows($getSchedule);
+
+
+        // Update schedule if shift and date is existing
+        if($resultNo2 > 0){
+            
+            while (strtotime($start_date) <= strtotime($end_date)) {
+                echo "$start_date". " ";
+                $setSchedule = mysqli_query($conn, "UPDATE schedule SET shift_ID = '".$shiftID."' where sched_Date ='$start_date' AND user_ID = '$usrID'");
+                echo "query worked I guess" . $resultNo2;
+                $start_date = date ("Y-m-d", strtotime("+1 days", strtotime($start_date)));
+            }
+
+
         }
+        // Insert schedule if shift and date is not yet existing
+        else {
+
+            while (strtotime($start_date) <= strtotime($end_date)) {
+                echo "$start_date". " ";
+                $sql = "INSERT INTO schedule (sched_date, created_at, user_ID, shift_ID) VALUES('$start_date', '$created_at','$usrID', '$shiftID')";
+                $query = mysqli_query($conn,$sql);
+                $start_date = date ("Y-m-d", strtotime("+1 days", strtotime($start_date)));
+            }
+        }
+             
+        
     }
 
     $itr++;
@@ -191,7 +144,7 @@ while($resultNo > $itr){
                                     $name = $row['first_name']." ".$row['middle_name']." ".$row['last_name'];
                                     $department = $row['department'];
 
-                                        
+                                    
                                         
                                     ?>
                                     
