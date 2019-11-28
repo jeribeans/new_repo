@@ -21,6 +21,7 @@ $getTime = mysqli_query($conn, "SELECT * FROM timeCheck");
 $resultNo = mysqli_num_rows($getEmployee);
 
 
+//While loop that checks which info is submitted
 $itr=0;
 while($resultNo > $itr){
 
@@ -43,9 +44,6 @@ while($resultNo > $itr){
         $name = $_POST[$name];
         $dept = $_POST[$dept];
 
-        echo $usrID . " " . $empID . " " . $name . " " . $dept . " " . " " . $sdate . " to " . $edate . " " . $shift;
-        echo '<br>';
-
         if($shift == "Morning Shift"){
             $shiftID = 1;
         } 
@@ -60,37 +58,38 @@ while($resultNo > $itr){
         $end_date = $edate;
         $created_at = date("Y:m:d H:i:s");
 
-        //Checks if there are already existing scheduled dates in the DB
-        $getSchedule = mysqli_query($conn, "SELECT * FROM schedule where sched_Date ='$start_date' AND user_ID = '$usrID'");
-        $resultNo2 = mysqli_num_rows($getSchedule);
-
-
-        // Update schedule if shift and date is existing
-        if($resultNo2 > 0){
-            
-            while (strtotime($start_date) <= strtotime($end_date)) {
-                echo "$start_date". " ";
-                $setSchedule = mysqli_query($conn, "UPDATE schedule SET shift_ID = '".$shiftID."' where sched_Date ='$start_date' AND user_ID = '$usrID'");
-                echo "query worked I guess" . $resultNo2;
-                $start_date = date ("Y-m-d", strtotime("+1 days", strtotime($start_date)));
-            }
-
-
+        if ($edate < $sdate){
+            ?> <script> alert ("Incorrect Date Range! Please double check start and end date for schedule.")</script><?php
         }
-        // Insert schedule if shift and date is not yet existing
         else {
 
+            $strtdate = date('F d Y', strtotime($sdate));
+            $enddate = date('F d Y', strtotime($edate));
+
+            ?> <script> alert ("New schedule set for <?=$name?>!"+"\n"+"Schedule date from: <?=$strtdate?> to <?=$enddate?>"+"\n"+"Shift: <?=$shift?>")</script><?php
+
+            //Check and loops the number of days (range from start to end date)
             while (strtotime($start_date) <= strtotime($end_date)) {
-                echo "$start_date". " ";
-                $sql = "INSERT INTO schedule (sched_date, created_at, user_ID, shift_ID) VALUES('$start_date', '$created_at','$usrID', '$shiftID')";
-                $query = mysqli_query($conn,$sql);
-                $start_date = date ("Y-m-d", strtotime("+1 days", strtotime($start_date)));
+                //query to check if input schedule date is existing or not
+                $getSchedule = mysqli_query($conn, "SELECT * FROM schedule where sched_Date ='$start_date' AND user_ID = '$usrID'");
+                $resultNo2 = mysqli_num_rows($getSchedule);
+
+                //inserts schedule date if not existing
+                if(!$resultNo2){
+                    $sql = "INSERT INTO schedule (sched_date, created_at, user_ID, shift_ID) VALUES('$start_date', '$created_at','$usrID', '$shiftID')";
+                    $query = mysqli_query($conn,$sql);
+                }
+                
+                //updates schedule date if existing
+                else {
+                    $setSchedule = mysqli_query($conn, "UPDATE schedule SET shift_ID = '".$shiftID."', created_at = '".$created_at."' WHERE sched_Date ='$start_date' AND user_ID = '$usrID'");
+                }
+
+                //adds 1 day until it reaches end date
+                $start_date = date ("Y-m-d", strtotime("+1 days", strtotime($start_date)));    
             }
         }
-             
-        
     }
-
     $itr++;
 }
 
@@ -144,8 +143,6 @@ while($resultNo > $itr){
                                     $name = $row['first_name']." ".$row['middle_name']." ".$row['last_name'];
                                     $department = $row['department'];
 
-                                    
-                                        
                                     ?>
                                     
                                     <div style="overflow-x:auto;">
@@ -204,8 +201,6 @@ while($resultNo > $itr){
                 ?>
                                     </tbody>
                         </table>        
-              <!--   <input type="submit" name="submit" class="btn btn-def btn-block" value="Set" /> -->
-
                   
                                     </form>
         </div>    
