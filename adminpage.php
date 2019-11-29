@@ -6,8 +6,12 @@ $first_name = $_SESSION['firstname'];
 $last_name = $_SESSION['lastname'];
 $department = $_SESSION['department'];
 
+$START = date('Y-m-01')."<br>";
+$END = date('Y-m-t',strtotime('this month'))."<br>";
+
+
 if ($_SESSION['department']!='Admin'){
-    header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/index.php");
+    header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/index2.php");
 } 
     
 include('includes/navbar.php');
@@ -79,13 +83,25 @@ include('includes/adminsidebar.php');
 </div>
 
 
-
 <div class="container">
         <div class="row">
             <div class="Absolute-Center is-Responsive">
                 <div class="col-sm-12 col-md-10 col-md-offset-0">
                     <h3> Schedule as of <?php echo date('F Y')?> </h3>
 
+
+
+
+<?php     
+    
+
+    
+    // SELECT * FROM lddap WHERE lddap_no LIKE '%2017-06%';
+    $viewSchedule = mysqli_query($conn,"SELECT user.employee_ID, user.first_name, user.last_name, user.department, schedule.sched_Date, shift.shift  FROM schedule JOIN shift ON schedule.shift_ID = shift.shift_ID JOIN user ON schedule.user_ID = user.user_ID WHERE schedule.sched_Date  BETWEEN '$START' AND '$END' ORDER BY  schedule.sched_Date");
+    $resultNo2 = mysqli_num_rows($viewSchedule);
+
+    if($resultNo2 > 0){       
+        ?>
 
                         <table class="table table-hover table-striped table-condensed table-bordered" >
                             <thead>
@@ -99,16 +115,8 @@ include('includes/adminsidebar.php');
                                 </tr>
                         
                             </thead>  
+        <?php
 
-<?php     
-    
-
-    
-    // SELECT * FROM lddap WHERE lddap_no LIKE '%2017-06%';
-    $viewSchedule = mysqli_query($conn,"SELECT employee_ID, first_name, last_name, department, sched_Date, shift  FROM schedule JOIN shift ON schedule.shift_ID = shift.shift_ID JOIN user ON schedule.user_ID = user.user_ID ORDER BY  schedule.sched_Date");
-    $resultNo2 = mysqli_num_rows($viewSchedule);
-
-    if($resultNo > 0){                                
         while($row = mysqli_fetch_assoc($viewSchedule)){
 
             $printID = $row['employee_ID'];
@@ -152,59 +160,12 @@ include('includes/adminsidebar.php');
             
         }
     }
+    else {
+        echo "<h4>There are no schedule assigned for the month of ".date('F Y')." yet.</h4>";
+    }
 
 
 ?> </table>
-<!--      
-    <?php
-    $getSchedule = mysqli_query($conn, "SELECT *    FROM request where status = 'pending'");
-    
-    $resultNo = mysqli_num_rows($getEmployeeRequest);
-        
-    if (!$resultNo){
-        echo ' <h4>There are no pending requests at the moment. </h4>';
-    } 
-    else{
-    
-        ?>
-        <table class="table table-hover table-striped table-condensed table-bordered" >
-            <thead>
-            <tr>
-                    
-                    <th>Name</th>
-                    <th>Shift</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                </tr>
-            </thead>
-
-            <?php
-                if($resultNo > 0){                                
-                    while($row = mysqli_fetch_assoc($getEmployeeRequest)){
-                        $ID = $row['user_ID'];
-                        $getUser = mysqli_query($conn, "SELECT * FROM user where user_id = '$ID'");
-                        $row2 = mysqli_fetch_assoc($getUser);
-                    
-                        $employeeID = $row['request_ID'];
-                        $name = $row2['first_name']." ".$row2['middle_name']." ".$row2['last_name'];
-                        $department = $row2['department'];
-                        ?>
-                        <div style="overflow-x:auto;">
-                        <tbody class="table table-striped">
-                            <tr>
-                                <td><a href="viewRequestDetails.php?IDval=<?php echo $employeeID?>">View Request Detail </td>
-                                <td><?php echo $name;?></a></td>
-                                <td><?php echo $department;?></td>
-                                <td><?php echo $row['leave_type'];?></td>
-                            </tr>
-                            <?php 
-                    }
-                }
-    }
-    ?>
-                        </tbody>
-        </table>        
-</div> -->
 
 
 

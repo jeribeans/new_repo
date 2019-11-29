@@ -91,27 +91,27 @@ require_once('includes/header.php'); ?>
     // User log out
     if (isset($_POST['logout'])){
      
-      	$date = date("Y-n-d");
-      	$time = date("H:i:s");
+      $date = date("Y-n-d");
+      $time = date("H:i:s");
       
 
-      	$username = mysqli_real_escape_string($conn, $_POST['username']);
+      $username = mysqli_real_escape_string($conn, $_POST['username']);
      	$password = mysqli_real_escape_string($conn, $_POST['password']);
      	$password = md5($password);
 
-		// Get user to check if username and password match
+		  // Get user to check if username and password match
     	$sql4 = "SELECT * FROM user WHERE employee_ID = '$username' AND password = '$password'";
-      	$query4 = mysqli_query($conn,$sql4);
+      $query4 = mysqli_query($conn,$sql4);
     	
 
 
     	$row4 = mysqli_fetch_array($query4,MYSQLI_ASSOC);
 
-      	$userID = $row4['user_ID'];
-      	$username = $row4['employee_id'];
-      	$firstname = $row4['first_name'];
-      	$lastname = $row4['last_name'];
-      	$department = $row4['department'];
+      $userID = $row4['user_ID'];
+      $username = $row4['employee_id'];
+      $firstname = $row4['first_name'];
+      $lastname = $row4['last_name'];
+      $department = $row4['department'];
       	
 
 
@@ -140,8 +140,8 @@ require_once('includes/header.php'); ?>
 
       			$sql6 = "UPDATE timecheck SET logout_date ='".$date."', logout_time ='".$time."', status ='Logged out' WHERE status = 'Logged in' AND user_ID = '".$row5['user_ID']."' ";
         		$query6 = mysqli_query($conn,$sql6);
-				session_destroy();    
-        		exit();
+				// session_destroy();    
+    //     		exit();
       		
 
         	// Not logged-in
