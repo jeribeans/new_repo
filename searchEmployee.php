@@ -1,4 +1,4 @@
-<?php require_once('includes/header.php'); 
+<?php require_once('includes/header.php');
 include('includes/navbar.php');
 include('includes/adminsidebar.php');
 
@@ -24,7 +24,6 @@ $query2 = mysqli_query($conn,$sql2);
 $row = mysqli_fetch_array($query2,MYSQLI_ASSOC);
 
 $_SESSION['checkID'] = $row['check_ID'];
-// $_SESSION['login_time'] = $row['login'];
 $_SESSION['status'] = $row['status'];
 $_SESSION['userID'] = $row['user_ID'];
 ?>

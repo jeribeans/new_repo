@@ -10,7 +10,7 @@ require_once('includes/header.php'); ?>
 	// User log-in
 	if (isset($_POST['login'])){
 
-    	$username = mysqli_real_escape_string($conn, $_POST['username']);
+    $username = mysqli_real_escape_string($conn, $_POST['username']);
 	 	$password = mysqli_real_escape_string($conn, $_POST['password']);
 	 	
 

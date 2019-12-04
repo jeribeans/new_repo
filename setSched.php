@@ -76,7 +76,7 @@ while($resultNo > $itr){
 
                 //inserts schedule date if not existing
                 if(!$resultNo2){
-                    $sql = "INSERT INTO schedule (sched_date, created_at, user_ID, shift_ID) VALUES('$start_date', '$created_at','$usrID', '$shiftID')";
+                    $sql = "INSERT INTO schedule (sched_date, created_at, user_ID, shift_ID, status) VALUES('$start_date', '$created_at','$usrID', '$shiftID', 'No status yet (On-time, Late, Undertime, overtime)')";
                     $query = mysqli_query($conn,$sql);
                 }
                 

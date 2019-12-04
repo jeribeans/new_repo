@@ -25,19 +25,11 @@
 
                 <li>
                     <a href="searchEmployee.php">
-                        <span>Search Employee</span>
+                        <span>Search Employee Attendance</span>
                     </a>
                 </li>
 
-                <li>
-                    <a href="attendanceSummary.php">
-                        <span>Attendance Summary</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="viewReport.php">
-                        <span>View Report</span>
+                
                     </a>
                 </li>
                 

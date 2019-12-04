@@ -1,18 +1,16 @@
 <?php require_once('includes/header.php'); 
 
 $userID = $_SESSION['check'];
-$date = date("Y:m:d");
-$time = date("H:i:s");
-$status = "Logged in";
+
 
 $getID  = $_GET['IDval'];
 
-$getEmployeeRequest = mysqli_query($conn, "SELECT *    FROM request where user_ID = '$getID' AND status = 'pending'");
+$getEmployeeRequest = mysqli_query($conn, "SELECT * FROM request where user_ID = '$getID' AND status = 'pending'");
 $row2 = mysqli_fetch_array($getEmployeeRequest,MYSQLI_ASSOC);
 
-$employeeRequestID = $row2['user_ID'];
-$requestID = $row2['request_ID'];
-$reason = $row2['reason'];
+echo $employeeRequestID = $row2['user_ID'];
+echo $requestID = $row2['request_ID'];
+echo $reason = $row2['reason'];
 $requestDate = $row2['request_Date'];
 $leaveType = $row2['leave_type'];
 $strtDate = $row2['start_Date'];
@@ -25,10 +23,10 @@ $query = mysqli_query($conn,$sql);
 $row = mysqli_fetch_array($query,MYSQLI_ASSOC);
 
 
-$user = $row['user_ID'];    
-$name = $row['first_name'];
-$middlename = $row['middle_name'];
-$last = $row['last_name'];
+echo $user = $row['user_ID'];    
+echo $name = $row['first_name'];
+echo $middlename = $row['middle_name'];
+echo $last = $row['last_name'];
 $email = $row['email'];
 $contact = $row['contact_num'];
 $employeeID = $row['employee_id'];
@@ -38,7 +36,7 @@ $employeeID = $row['employee_id'];
 
 if (isset($_POST['approve'])){
   $test = $_POST['requestid'];
-  $sql = "UPDATE request SET status ='approved' WHERE request_ID = '$test' ";
+  $sql = "UPDATE request SET status ='APPROVED' WHERE request_ID = '$test' ";
   $query = mysqli_query($conn,$sql);
 
 
@@ -49,7 +47,7 @@ if (isset($_POST['approve'])){
 
 if (isset($_POST['decline'])){
  $test = $_POST['requestid'];
-  $sql = "UPDATE request SET status ='declined' WHERE request_ID = '$test' ";
+  $sql = "UPDATE request SET status ='DECLINED' WHERE request_ID = '$test' ";
   $query = mysqli_query($conn,$sql);
 
 

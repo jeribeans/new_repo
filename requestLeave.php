@@ -5,9 +5,8 @@
 
 
 $userID = $_SESSION['check'];
-$date = date("Y:m:d");
-$time = date("H:i:s");
-$status = "Logged in";
+
+
 
 
 
@@ -29,13 +28,25 @@ $employeeID = $row['employee_id'];
 
 
 
-if (isset($_POST['approve'])){
-  $test = $_POST['requestid'];
-  $sql = "UPDATE request SET status ='approved' WHERE request_ID = '$test' ";
-  $query = mysqli_query($conn,$sql);
+if (isset($_POST['submit'])){
+  $leave = $_POST['leave'];
+  $requestDate = date("Y-m-d");
+  $startLeave = $_POST['startLeave'];
+  $endLeave = $_POST['endLeave'];
+  $reason = $_POST['reason'];
+  $status = 'PENDING';
+  
+  $submitRequest = "INSERT INTO request (user_ID, leave_type, request_date, start_Date, end_Date, reason, status) VALUES('".$user."', '".$leave."','".$requestDate."', '".$startLeave."' , '".$endLeave."', '".$reason."', '".$status."')";
+  
+  $query = mysqli_query($conn,$submitRequest);
 
+  if($query){
+    echo "success";
+  }else {
+    echo "<br>failed bruh";
+  }
 
-  header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/adminpage.php");
+  header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/employeepage.php");
 
 
   }
@@ -68,14 +79,14 @@ if (isset($_POST['approve'])){
           <label for="sel1">Employee Name:</label>
           <div class="form-group input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-            <input class="form-control" type="text" name='firstname' value="<?php echo $name. " ".$last; ?>" required="true" >          
+            <input class="form-control" type="text" name='name' value="<?php echo $name. " ".$last; ?>" readonly required="true" >          
           </div>
 
           
            <div class="form-group">
             <label for="sel1">Leave Type:</label>
 
-            <select class="form-control" name="department" required="true">
+            <select class="form-control" name="leave" required="true">
               <option value="" disabled selected>Select Leave Type</option>
               <option>Sick Leave</option>
               <option>Vacation Leave</option>
@@ -88,21 +99,21 @@ if (isset($_POST['approve'])){
           
           <div class="form-group input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-            <input class="form-control" type="date" name='endDate'  required="true" >          
+            <input class="form-control" type="date" name='startLeave'  required="true" >          
           </div>
 
           <label for="sel1">End Date of Leave:</label>
           
           <div class="form-group input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-            <input class="form-control" type="date" name='endDate'  required="true" >          
+            <input class="form-control" type="date" name='endLeave'  required="true" >          
           </div>
 
           <label for="sel1">Reason:</label>
           <div class="form-group input-group">
 
             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-            <input class="form-control" type="text" name='firstname' placeholder="Type reason" required="true" style="height:200px" hidden="true">
+            <input class="form-control" type="text" name='reason' placeholder="Type reason (200 characters)" required="true" style="height:200px" hidden="true">
           </div>
 
 

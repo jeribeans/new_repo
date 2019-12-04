@@ -19,7 +19,7 @@ include('includes/adminsidebar.php');
 
 ?>
 
-<meta http-equiv="refresh" content="120" >
+<meta http-equiv="refresh" content="50" >
 
 
 <LEGEND><h2>Admin Homepage</h2></LEGEND>
@@ -34,7 +34,7 @@ include('includes/adminsidebar.php');
     <h3>Pending Request:</h3>     
      
     <?php
-    $getEmployeeRequest = mysqli_query($conn, "SELECT *    FROM request where status = 'pending'");
+    $getEmployeeRequest = mysqli_query($conn, "SELECT * FROM request WHERE status = 'PENDING'");
     
     $resultNo = mysqli_num_rows($getEmployeeRequest);
         
@@ -58,10 +58,10 @@ include('includes/adminsidebar.php');
                 if($resultNo > 0){                                
                     while($row = mysqli_fetch_assoc($getEmployeeRequest)){
                         $ID = $row['user_ID'];
-                        $getUser = mysqli_query($conn, "SELECT * FROM user where user_id = '$ID'");
+                        $getUser = mysqli_query($conn, "SELECT * FROM user WHERE user_id = '$ID'");
                         $row2 = mysqli_fetch_assoc($getUser);
                     
-                        $employeeID = $row['request_ID'];
+                        $employeeID = $row['user_ID'];
                         $name = $row2['first_name']." ".$row2['middle_name']." ".$row2['last_name'];
                         $department = $row2['department'];
                         ?>
@@ -106,7 +106,6 @@ include('includes/adminsidebar.php');
                         <table class="table table-hover table-striped table-condensed table-bordered" >
                             <thead>
                                 <tr>
-                                    <th><?php echo date('M Y')?></th>
                                     <th>Employee ID</th>
                                     <th>Name</th>
                                     <th>Department</th>                                                
@@ -130,10 +129,6 @@ include('includes/adminsidebar.php');
                                     <tbody class="table table-striped">
                                 
                                         <tr>
-                                            <td>
-                                                Date
-                                            </td>
-
                                             <td>
                                                 <?php echo $printID;?>
                                             </td>
