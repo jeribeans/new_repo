@@ -28,13 +28,13 @@ include('includes/sidebar.php');
 <div class="container-fluid">
 	<LEGEND><h2>Employee Homepage</h2></LEGEND>
              
-    <iframe width=800px height=450px src=<?php echo "schedule.php"?> frameborder="yes" scrolling="yes" name="my_iframe1" id="my_iframe1"></iframe>
+    
     <form action="schedule.php" method="post" target="my_iframe1">
-        <b>Search Schedule Date:</b>
+        <font size="5"><b>Schedule:</b></font>
         <input type="month" name='dateSearch1' value="<?php echo date('Y-m');?>" ">
         <input type="submit" class="btn btn-def" name='searchDate1' value="Search" />
     </form>
-
+    <iframe width=800px height=450px src=<?php echo "schedule.php"?> frameborder="yes" scrolling="yes" name="my_iframe1" id="my_iframe1"></iframe>
                     
                     
 <?php     
@@ -57,13 +57,13 @@ include('includes/sidebar.php');
             <div class="Absolute-Center is-Responsive">
                 <div class="col-sm-12 col-md-10 col-md-offset-0"> -->
                     
-                    <iframe width=800px height=450px src=<?php echo "attendance.php"?> frameborder="yes" scrolling="yes" name="my_iframe2" id="my_iframe2"></iframe>
+                     
                     <form action="attendance.php" method="post" target="my_iframe2">
-                        <b>Search Attendance Date:</b>
+                        <font size="5"><b>Attendance:</b></font>
                         <input type="month" name='dateSearch2' value="<?php echo date('Y-m');?>" ">
                         <input type="submit" class="btn btn-def" name='searchDate2' value="Search" />
                     </form>
-
+                    <iframe width=800px height=450px src=<?php echo "attendance.php"?> frameborder="yes" scrolling="yes" name="my_iframe2" id="my_iframe2"></iframe>
 
 <?php     
     
