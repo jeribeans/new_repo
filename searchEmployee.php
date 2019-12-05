@@ -53,7 +53,7 @@ $_SESSION['userID'] = $row['user_ID'];
                 <div class="row">
                         <div class="Absolute-Center is-Responsive">
                                 <div id="logo-container"></div>
-                                <div class="col-sm-12 col-md-10 col-md-offset-1">
+                                <div class="col-sm-12 col-md-10 col-md-offset-0">
         
                                         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" id="loginForm" method="post">
 
@@ -78,7 +78,7 @@ $_SESSION['userID'] = $row['user_ID'];
                                                         <input class="form-control" type="date" required="true"  name='endDate' placeholder="End Date"/>     
                                                 </div>
                                                 <div class="form-group">
-                                                        <input type="submit" name="searh" class="btn btn-def btn-block" value="Search" />
+                                                        <input type="submit" name="searh" class="btn btn-def" value="Search" />
                                                 </div>
                                         </form>
 
