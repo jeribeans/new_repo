@@ -27,14 +27,16 @@ include('includes/sidebar.php');
 
 <div class="container-fluid">
 	<LEGEND><h2>Employee Homepage</h2></LEGEND>
+             
+    <iframe width=800px height=450px src=<?php echo "schedule.php"?> frameborder="yes" scrolling="yes" name="my_iframe1" id="my_iframe1"></iframe>
+    <form action="schedule.php" method="post" target="my_iframe1">
+        <b>Search Schedule Date:</b>
+        <input type="month" name='dateSearch1' value="<?php echo date('Y-m');?>" ">
+        <input type="submit" class="btn btn-def" name='searchDate1' value="Search" />
+    </form>
 
-<!-- <div class="container">
-        <div class="row">
-            <div class="Absolute-Center is-Responsive">
-                <div class="col-sm-12 col-md-10 col-md-offset-0"> -->
-                    <h3> Schedule (<?php echo date('F Y')?>) </h3>
-
-
+                    
+                    
 <?php     
     
 	//SELECT * FROM schedule WHERE sched_Date BETWEEN "2019-11-01" $START AND "2019-11-30" $END;
@@ -47,68 +49,20 @@ include('includes/sidebar.php');
     $resultNo2 = mysqli_num_rows($viewSchedule);
 
     
-    if($resultNo2 > 0){             
-    	?>
-                        <table class="table table-hover table-striped table-condensed table-bordered" >
-                            <thead>
-                                <tr>
-                                    <th>Schedule Date</th>
-                                    <th>Shift</th>
-                                    <th>Schedule updated as of:</th>
-                                </tr>
-                        
-                            </thead>  
-        <?php
-        // $row = mysqli_fetch_assoc($viewSchedule);
-        while($row = mysqli_fetch_assoc($viewSchedule)){
-        	// for ($i =0; $i < $END; $i++){
-
-
-            $printID = $row['employee_ID'];
-            $printName = $row['first_name'] . " ". $row['last_name'];
-            $printDepartment = $row['department'];
-            $printDate = $row['sched_Date'];
-            $printShift = $row['shift'];
-            $printCreatedat = $row['created_at'];
-            
-
-            ?>
-            <div style="overflow-x:auto;">
-                                    <tbody class="table table-striped">
-                                
-                                        <tr>
-                                            <td>
-                                                <?php echo date("M d, Y - l", strtotime($printDate));?>
-                                            </td>
-
-                                            <td>
-                                                <?php echo $printShift;?>
-                                            </td>
-
-                                            <td>
-                                                <?php echo date("M d, Y - H:i:s", strtotime($printCreatedat));?>
-                                            </td>
-
-                                        </tr>
-                                    </tbody>
-
-            <?php 
-        }
-    }
-    else {
-        echo "<h4>There are no schedule assigned for the month of ".date('F Y')." yet.</h4>";
-    }
-
-?> </table>
-
-</div>
+?>
 
 
 <!-- <div class="container">
         <div class="row">
             <div class="Absolute-Center is-Responsive">
                 <div class="col-sm-12 col-md-10 col-md-offset-0"> -->
-                    <h3> Attendance Status (<?php echo date('F Y')?>) </h3>
+                    
+                    <iframe width=800px height=450px src=<?php echo "attendance.php"?> frameborder="yes" scrolling="yes" name="my_iframe2" id="my_iframe2"></iframe>
+                    <form action="attendance.php" method="post" target="my_iframe2">
+                        <b>Search Attendance Date:</b>
+                        <input type="month" name='dateSearch2' value="<?php echo date('Y-m');?>" ">
+                        <input type="submit" class="btn btn-def" name='searchDate2' value="Search" />
+                    </form>
 
 
 <?php     
@@ -119,85 +73,7 @@ include('includes/sidebar.php');
     //WHERE timecheck.login_date = schedule.sched_Date ORDER BY schedule.sched_Date;
 
 
-    $viewAttendance = mysqli_query($conn,"SELECT *  FROM timecheck WHERE user_ID = '$check' AND login_date  BETWEEN '$START' AND '$END' ORDER BY  login_date");
-    $resultNo2 = mysqli_num_rows($viewSchedule);
-
-    
-    if($resultNo2 > 0){             
-        ?>
-                        <table class="table table-hover table-striped table-condensed table-bordered" >
-                            <thead>
-                                <tr>
-                                    <th>Schedule Date</th>
-                                    <th>Log in Time:</th>
-                                    <th>Log out Time:</th>
-                                    <th>Status (tentative)</th>
-                                </tr>
-                        
-                            </thead>  
-        <?php
-        // $row = mysqli_fetch_assoc($viewSchedule);
-        while($getAttendance = mysqli_fetch_assoc($viewAttendance)){
-            // for ($i =0; $i < $END; $i++){
-
-
-            //$printID = $getAttendance['employee_ID'];
-            //$printName = $row['first_name'] . " ". $row['last_name'];
-            //$printDepartment = $row['department'];
-            $printLoginDate = $getAttendance['login_date'];
-            $printLoginTime = $getAttendance['login_time'];
-            $printLogoutTime = $getAttendance['logout_time'];
-            $printSchedStatus = $getAttendance['sched_status'];
-            
-
-            ?>
-            <div style="overflow-x:auto;">
-                                    <tbody class="table table-striped">
-                                
-                                        <tr>
-                                            <td>
-                                                <?php echo date("M d, Y - l", strtotime($printLoginDate));?>
-                                            </td>
-
-                                            <td>
-                                                <?php echo $printLoginTime;?>
-                                            </td>
-
-                                            <td>
-                                                <?php
-
-                                                if($printLogoutTime == null){
-                                                    echo "<b>You are currently Logged in</b>";
-                                                }else{
-                                                    echo $printLogoutTime;    
-                                                }
-                                                ?>
-                                            </td>
-
-                                             <td>
-                                                <?php
-
-                                                if($printSchedStatus == null){
-                                                    echo "<b>You are currently Logged in</b>";
-                                                }else{
-                                                    echo $printSchedStatus;    
-                                                }
-                                                ?>
-                                            </td>
-
-                                        </tr>
-                                    </tbody>
-
-            <?php 
-        }
-    }
-    else {
-        echo "<h4>There are no schedule assigned for the month of ".date('F Y')." yet.</h4>";
-    }
-
-?> </table>
-
-</div>
+    ?>
 
 
 
