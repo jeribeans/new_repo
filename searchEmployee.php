@@ -31,10 +31,7 @@ include('includes/adminsidebar.php');
 
 <div class="container-fluid">
 	
-        <legend><h2>Search Employee</h2></legend>	
-
-      
-
+        <legend><h2>Search Employee Attendance</h2></legend>	
 
         <div class="container">
                 <div class="row">
