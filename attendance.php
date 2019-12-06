@@ -207,5 +207,7 @@ else{
 
 ?>
 
-
+<FORM>
+<INPUT TYPE="button" class="btn btn-def" onClick="window.print()" value="Print">
+</FORM>
     

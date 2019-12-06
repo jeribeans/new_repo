@@ -154,10 +154,13 @@ if(isset($_POST['searchDate1'])){
 ?> </table>
 
 </div>
+
 <?php
 }
 
 ?>
 
-
+<FORM>
+<INPUT TYPE="button" class="btn btn-def" onClick="window.print()" value="Print">
+</FORM>
     

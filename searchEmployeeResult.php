@@ -70,19 +70,19 @@ if(isset($_POST['search'])){
                                 
                                         <tr>
                                             <td>
-                                               <?php echo $row2['shift'];//echo date("M d, Y - l", strtotime($printDate));?>
+                                               <?php echo $row2['shift'];?>
                                             </td>
 
                                              <td>
-                                               <?php echo date("M d, Y - l", strtotime($row2['sched_Date']));//echo date("M d, Y - l", strtotime($printDate));?>
+                                               <?php echo date("M d, Y - l", strtotime($row2['sched_Date']));?>
                                             </td>
 
                                             <td>
-                                               <?php echo date("M d, Y - l", strtotime($row2['login_date']))." -- ".$row2['login_time'];//echo date("M d, Y - l", strtotime($printDate));?>
+                                               <?php echo date("M d, Y - l", strtotime($row2['login_date']))." -- ".$row2['login_time'];?>
                                             </td>
                                            
                                             <td>
-                                                <?php echo date("M d, Y - l", strtotime($row2['logout_date']))." -- ".$row2['logout_time'];//echo date("M d, Y - H:i:s", strtotime($printCreatedat));?>
+                                                <?php echo date("M d, Y - l", strtotime($row2['logout_date']))." -- ".$row2['logout_time'];?>
                                             </td>
 
                                             <td>
@@ -120,3 +120,7 @@ if(isset($_POST['search'])){
 else {
     echo "";
 }
+?>
+<FORM>
+<INPUT TYPE="button" class="btn btn-def" onClick="window.print()" value="Print">
+</FORM>
