@@ -42,14 +42,14 @@ require_once('includes/header.php'); ?>
     	if(!$resultNo){
       
       		if ($row['department'] == 'Admin') {
-      			$date = date("Y-n-d");
+      		  $date = date("Y-n-d");
       			$time = date("H:i:s");
         
         		$userID = $row['user_ID'];
-			 	$username = $row['employee_id'];
-			  	$firstname = $row['first_name'];
-			  	$lastname = $row['last_name'];
-			  	$department = $row['department'];
+			 	    $username = $row['employee_id'];
+			  	  $firstname = $row['first_name'];
+			  	  $lastname = $row['last_name'];
+			  	  $department = $row['department'];
       			$shift = $row['shift'];
 
         		$status = "Logged in";

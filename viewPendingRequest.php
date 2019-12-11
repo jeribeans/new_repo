@@ -14,17 +14,15 @@ $first_name = $_SESSION['firstname'];
 $last_name = $_SESSION['lastname'];
 $department = $_SESSION['department'];
 
-$START = date('Y-m-01')."<br>";
-$END = date('Y-m-t',strtotime('this month'))."<br>";
-
 
 
 $START = date('Y-m-01');
-$END = date('Y-m-t',strtotime('this month'))."<br>";
+$END = date('Y-m-t',strtotime('this month'));
 
 ?>
 
 
+<meta http-equiv="refresh" content="30" >
 
 <?php     
 
@@ -73,7 +71,7 @@ if(isset($_POST['searchDate1'])){
                         <div style="overflow-x:auto;">
                         <tbody class="table table-striped">
                             <tr>
-                                <td><a href="viewRequestDetails.php?IDval=<?php echo $employeeID?>">View Request Detail </td>
+                                <td><a href="viewRequestDetails.php?IDval=<?php echo $employeeID?>" target="top">View Request Detail </td>
                                 <td><?php echo $name;?></a></td>
                                 <td><?php echo $department;?></td>
                                 <td><?php echo $row['leave_type'];?></td>
@@ -92,7 +90,7 @@ if(isset($_POST['searchDate1'])){
 else{
 
     ?>
-    <h3>Pending Requests:(<?php echo date('F Y');?>):</h3>     
+    <h3>Pending Requests (<?php echo date('F Y');?>):</h3>     
      
    <?php
     $getEmployeeRequest = mysqli_query($conn, "SELECT * FROM request WHERE status = 'PENDING' AND request_Date BETWEEN '$START' AND '$END'");
@@ -129,7 +127,7 @@ else{
                         <div style="overflow-x:auto;">
                         <tbody class="table table-striped">
                             <tr>
-                                <td><a href="viewRequestDetails.php?IDval=<?php echo $employeeID?>">View Request Detail </td>
+                                <td><a href="viewRequestDetails.php?IDval=<?php echo $employeeID?>" target="top">View Request Detail </td>
                                 <td><?php echo $name;?></a></td>
                                 <td><?php echo $department;?></td>
                                 <td><?php echo $row['leave_type'];?></td>

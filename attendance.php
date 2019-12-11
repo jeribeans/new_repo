@@ -194,7 +194,7 @@ else{
         }
     }
     else {
-        echo "<h4>There are no attendance for the month of ".date('F Y',strtotime($START1))." yet.</h4>";
+        echo "<h4>There are no attendance for the month of ".date('F Y')." yet.</h4>";
     }
 
 ?> </table>

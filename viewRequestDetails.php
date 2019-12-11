@@ -8,9 +8,9 @@ $getID  = $_GET['IDval'];
 $getEmployeeRequest = mysqli_query($conn, "SELECT * FROM request where user_ID = '$getID' AND status = 'pending'");
 $row2 = mysqli_fetch_array($getEmployeeRequest,MYSQLI_ASSOC);
 
-echo $employeeRequestID = $row2['user_ID'];
-echo $requestID = $row2['request_ID'];
-echo $reason = $row2['reason'];
+$employeeRequestID = $row2['user_ID'];
+$requestID = $row2['request_ID'];
+$reason = $row2['reason'];
 $requestDate = $row2['request_Date'];
 $leaveType = $row2['leave_type'];
 $strtDate = $row2['start_Date'];
@@ -23,10 +23,10 @@ $query = mysqli_query($conn,$sql);
 $row = mysqli_fetch_array($query,MYSQLI_ASSOC);
 
 
-echo $user = $row['user_ID'];    
-echo $name = $row['first_name'];
-echo $middlename = $row['middle_name'];
-echo $last = $row['last_name'];
+$user = $row['user_ID'];    
+$name = $row['first_name'];
+$middlename = $row['middle_name'];
+$last = $row['last_name'];
 $email = $row['email'];
 $contact = $row['contact_num'];
 $employeeID = $row['employee_id'];

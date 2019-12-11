@@ -22,7 +22,6 @@ include('includes/adminsidebar.php');
 
 ?>
 
-<meta http-equiv="refresh" content="50" >
 
 
 <LEGEND><h2>Admin Homepage</h2></LEGEND>
@@ -41,7 +40,162 @@ include('includes/adminsidebar.php');
     <iframe width=800px height=450px src=<?php echo "viewPendingRequest.php"?> frameborder="yes" scrolling="yes" name="my_iframe1" id="my_iframe1"></iframe>
 
 
-    
+
+
+<div class="container">
+        <div class="row">
+            <div class="Absolute-Center is-Responsive">
+                <div class="col-sm-12 col-md-10 col-md-offset-0">
+                    <h3> Schedule as of <?php echo date('F Y')?> </h3>
+
+
+     <table class="table table-hover table-striped table-condensed table-bordered" >
+                             <thead>
+                                 <tr>
+                                 	<th>Shift</th>
+                                 	<?php 
+
+                                 	$START1 = date('Y-m-01');
+    								$END1 = date('t',strtotime($START1));
+
+                                 	for ($i = 1; $i <= $END1; $i++){
+                                 		echo "<th>". $dates[] = date('M') . " " . str_pad($i, 2, '0', STR_PAD_LEFT). " ";"</th>";
+                                 	}
+
+                                 	?>
+                                     <!-- <th>Employee ID</th>
+                                     <th>Name</th>
+                                     <th>Department</th>                                                
+                                     <th>Schedule Date</th>
+                                     <th>Shift</th> -->
+                                 </tr>
+
+                                 <div style="overflow-x:auto;">
+                                    <tbody class="table table-striped">
+                                
+                                        <tr>
+                                            <td>Morning</td>
+                                            <?php
+                                            	$viewMorning =  mysqli_query($conn, "SELECT first_name, last_name from schedule JOIN shift ON schedule.shift_ID = shift.shift_ID JOIN user ON schedule.user_ID = user.user_ID WHERE schedule.shift_ID = '1' AND (schedule.sched_Date BETWEEN '2019-12-01' AND '2019-12-31')  ORDER BY schedule.sched_Date");
+                              					
+                                            
+                                            	while($row = mysqli_fetch_assoc($viewMorning)){
+                                            		echo "<td>".$row['first_name']." ".$row['last_name']."</td>";
+                                            	}
+                                           ?>
+                                        </tr>
+                                        <tr>
+                                            <td>Mid-Day</td>
+                                            <?php
+                              					$viewMorning =  mysqli_query($conn, "SELECT first_name, last_name from schedule JOIN shift ON schedule.shift_ID = shift.shift_ID JOIN user ON schedule.user_ID = user.user_ID WHERE schedule.shift_ID = '2' AND (schedule.sched_Date BETWEEN '2019-12-01' AND '2019-12-31')  ORDER BY schedule.sched_Date");
+                              					while($row = mysqli_fetch_assoc($viewMorning)){
+                                            		echo "<td>".$row['first_name']." ".$row['last_name']."</td>";
+                                            	}	
+                                           ?>
+                                        </tr>
+                                        <tr>
+                                            <td>GY</td>
+                                            <?php
+                              					$viewMorning =  mysqli_query($conn, "SELECT first_name, last_name from schedule JOIN shift ON schedule.shift_ID = shift.shift_ID JOIN user ON schedule.user_ID = user.user_ID WHERE schedule.shift_ID = '3' AND (schedule.sched_Date BETWEEN '2019-12-01' AND '2019-12-31')  ORDER BY schedule.sched_Date");
+                              					
+                              					while($row = mysqli_fetch_assoc($viewMorning)){
+                                            		echo "<td>".$row['first_name']." ".$row['last_name']."</td>";
+                                            	}
+                                           ?>
+                                        </tr>
+                        
+                             </thead>  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 
+
 
 <div class="container">
         <div class="row">
@@ -57,70 +211,70 @@ include('includes/adminsidebar.php');
 
     
     // SELECT * FROM lddap WHERE lddap_no LIKE '%2017-06%';
-    $viewSchedule = mysqli_query($conn,"SELECT user.employee_ID, user.first_name, user.last_name, user.department, schedule.sched_Date, shift.shift  FROM schedule JOIN shift ON schedule.shift_ID = shift.shift_ID JOIN user ON schedule.user_ID = user.user_ID WHERE schedule.sched_Date  BETWEEN '$START' AND '$END' ORDER BY  schedule.sched_Date");
-    $resultNo2 = mysqli_num_rows($viewSchedule);
+    // $viewSchedule = mysqli_query($conn,"SELECT user.employee_ID, user.first_name, user.last_name, user.department, schedule.sched_Date, shift.shift  FROM schedule JOIN shift ON schedule.shift_ID = shift.shift_ID JOIN user ON schedule.user_ID = user.user_ID WHERE schedule.sched_Date  BETWEEN '$START' AND '$END' ORDER BY  schedule.sched_Date");
+    // $resultNo2 = mysqli_num_rows($viewSchedule);
 
-    if($resultNo2 > 0){       
-        ?>
+    // if($resultNo2 > 0){       
+    //     ?>
 
-                        <table class="table table-hover table-striped table-condensed table-bordered" >
-                            <thead>
-                                <tr>
-                                    <th>Employee ID</th>
-                                    <th>Name</th>
-                                    <th>Department</th>                                                
-                                    <th>Schedule Date</th>
-                                    <th>Shift</th>
-                                </tr>
+                         <!-- <table class="table table-hover table-striped table-condensed table-bordered" >
+                             <thead>
+                                 <tr>
+                                     <th>Employee ID</th>
+                                     <th>Name</th>
+                                     <th>Department</th>                                                
+                                     <th>Schedule Date</th>
+                                     <th>Shift</th>
+                                 </tr>
                         
-                            </thead>  
-        <?php
+                             </thead>   -->
+         <?php
 
-        while($row = mysqli_fetch_assoc($viewSchedule)){
+    //     while($row = mysqli_fetch_assoc($viewSchedule)){
 
-            $printID = $row['employee_ID'];
-            $printName = $row['first_name'] . " ". $row['last_name'];
-            $printDepartment = $row['department']."<br>";
-            $printDate = $row['sched_Date']."<br>";
-            $printShift = $row['shift']."<br>";
+    //         $printID = $row['employee_ID'];
+    //         $printName = $row['first_name'] . " ". $row['last_name'];
+    //         $printDepartment = $row['department']."<br>";
+    //         $printDate = $row['sched_Date']."<br>";
+    //         $printShift = $row['shift']."<br>";
 
             ?>
-            <div style="overflow-x:auto;">
+<!--             <div style="overflow-x:auto;">
                                     <tbody class="table table-striped">
                                 
                                         <tr>
                                             <td>
-                                                <?php echo $printID;?>
-                                            </td>
+ -->                                                <?php //echo $printID;?>
+                                            <!-- </td>
 
-                                            <td>
-                                                <?php echo $printName;?>
-                                            </td>
+                                            <td> -->
+                                                <?php //echo $printName;?>
+                                            <!-- </td>
                                             
-                                            <td>
-                                                <?php echo $printDepartment;?>
-                                            </td>
+                                            <td> -->
+                                                <?php //echo $printDepartment;?>
+                                            <!-- </td>
 
-                                            <td>
-                                                <?php echo $printDate;?>
-                                            </td>
+                                            <td> -->
+                                                <?php //echo $printDate;?>
+                                            <!-- </td>
 
-                                            <td>
-                                                <?php echo $printShift;?>
-                                            </td>
+                                            <td> -->
+                                                <?php //echo $printShift;?>
+                                    <!--         </td>
                                         </tr>
-                                    </tbody>
+                                    </tbody> -->
 
             <?php 
             
-        }
-    }
-    else {
-        echo "<h4>There are no schedule assigned for the month of ".date('F Y')." yet.</h4>";
-    }
+    //     }
+    // }
+    // else {
+    //     echo "<h4>There are no schedule assigned for the month of ".date('F Y')." yet.</h4>";
+    // }
 
 
-?> </table>
+ ?><!-- </table> -->
 
 
 
