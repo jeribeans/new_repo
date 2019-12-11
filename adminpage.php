@@ -33,58 +33,15 @@ include('includes/adminsidebar.php');
 
 <div class="container-fluid">
     
-    
-    <h3>Pending Request:</h3>     
-     
-    <?php
-    $getEmployeeRequest = mysqli_query($conn, "SELECT * FROM request WHERE status = 'PENDING'");
-    
-    $resultNo = mysqli_num_rows($getEmployeeRequest);
-        
-    if (!$resultNo){
-        echo ' <h4>There are no pending requests at the moment. </h4>';
-    } 
-    else{
-    
-        ?>
-        <table class="table table-hover table-striped table-condensed table-bordered" >
-            <thead>
-            <tr>
-                    <th>Request Detail</th>
-                    <th>Name</th>
-                    <th>Department</th>
-                    <th>Leave type</th>
-            </tr>
-            </thead>
+    <form action="viewPendingRequest.php" method="post" target="my_iframe1">
+        <font size="5"><b>Schedule:</b></font>
+        <input type="month" name='dateSearch1' value="<?php echo date('Y-m');?>" ">
+        <input type="submit" class="btn btn-def" name='searchDate1' value="Search" />
+    </form>
+    <iframe width=800px height=450px src=<?php echo "viewPendingRequest.php"?> frameborder="yes" scrolling="yes" name="my_iframe1" id="my_iframe1"></iframe>
 
-            <?php
-                if($resultNo > 0){                                
-                    while($row = mysqli_fetch_assoc($getEmployeeRequest)){
-                        $ID = $row['user_ID'];
-                        $getUser = mysqli_query($conn, "SELECT * FROM user WHERE user_id = '$ID'");
-                        $row2 = mysqli_fetch_assoc($getUser);
-                    
-                        $employeeID = $row['user_ID'];
-                        $name = $row2['first_name']." ".$row2['middle_name']." ".$row2['last_name'];
-                        $department = $row2['department'];
-                        ?>
-                        <div style="overflow-x:auto;">
-                        <tbody class="table table-striped">
-                            <tr>
-                                <td><a href="viewRequestDetails.php?IDval=<?php echo $employeeID?>">View Request Detail </td>
-                                <td><?php echo $name;?></a></td>
-                                <td><?php echo $department;?></td>
-                                <td><?php echo $row['leave_type'];?></td>
-                            </tr>
-                            <?php 
-                    }
-                }
-    }
-    ?>
-                        </tbody>
-        </table>        
-</div>
 
+    
 
 <div class="container">
         <div class="row">
