@@ -40,71 +40,13 @@ include('includes/adminsidebar.php');
     <iframe width=800px height=450px src=<?php echo "viewPendingRequest.php"?> frameborder="yes" scrolling="yes" name="my_iframe1" id="my_iframe1"></iframe>
 
 
+    <form action="adminDisplaySchedule.php" method="post" target="my_iframe2">
+        <font size="5"><b>Schedule:</b></font>
+        <input type="month" name='dateSearch2' value="<?php echo date('Y-m');?>" ">
+        <input type="submit" class="btn btn-def" name='searchDate2' value="Search" />
+    </form>
+    <iframe width=1200px height=350px src=<?php echo "adminDisplaySchedule.php"?> frameborder="yes" scrolling="yes" name="my_iframe2" id="my_iframe2"></iframe>
 
-
-<div class="container">
-        <div class="row">
-            <div class="Absolute-Center is-Responsive">
-                <div class="col-sm-12 col-md-10 col-md-offset-0">
-                    <h3> Schedule as of <?php echo date('F Y')?> </h3>
-
-
-     <table class="table table-hover table-striped table-condensed table-bordered" >
-                             <thead>
-                                 <tr>
-                                 	<th>Shift</th>
-                                 	<?php 
-
-                                 	$START1 = date('Y-m-01');
-    								$END1 = date('t',strtotime($START1));
-
-                                 	for ($i = 1; $i <= $END1; $i++){
-                                 		echo "<th>". $dates[] = date('M') . " " . str_pad($i, 2, '0', STR_PAD_LEFT). " ";"</th>";
-                                 	}
-
-                                 	?>
-                                     <!-- <th>Employee ID</th>
-                                     <th>Name</th>
-                                     <th>Department</th>                                                
-                                     <th>Schedule Date</th>
-                                     <th>Shift</th> -->
-                                 </tr>
-
-                                 <div style="overflow-x:auto;">
-                                    <tbody class="table table-striped">
-                                
-                                        <tr>
-                                            <td>Morning</td>
-                                            <?php
-                                            	$viewMorning =  mysqli_query($conn, "SELECT first_name, last_name from schedule JOIN shift ON schedule.shift_ID = shift.shift_ID JOIN user ON schedule.user_ID = user.user_ID WHERE schedule.shift_ID = '1' AND (schedule.sched_Date BETWEEN '2019-12-01' AND '2019-12-31')  ORDER BY schedule.sched_Date");
-                              					
-                                            
-                                            	while($row = mysqli_fetch_assoc($viewMorning)){
-                                            		echo "<td>".$row['first_name']." ".$row['last_name']."</td>";
-                                            	}
-                                           ?>
-                                        </tr>
-                                        <tr>
-                                            <td>Mid-Day</td>
-                                            <?php
-                              					$viewMorning =  mysqli_query($conn, "SELECT first_name, last_name from schedule JOIN shift ON schedule.shift_ID = shift.shift_ID JOIN user ON schedule.user_ID = user.user_ID WHERE schedule.shift_ID = '2' AND (schedule.sched_Date BETWEEN '2019-12-01' AND '2019-12-31')  ORDER BY schedule.sched_Date");
-                              					while($row = mysqli_fetch_assoc($viewMorning)){
-                                            		echo "<td>".$row['first_name']." ".$row['last_name']."</td>";
-                                            	}	
-                                           ?>
-                                        </tr>
-                                        <tr>
-                                            <td>GY</td>
-                                            <?php
-                              					$viewMorning =  mysqli_query($conn, "SELECT first_name, last_name from schedule JOIN shift ON schedule.shift_ID = shift.shift_ID JOIN user ON schedule.user_ID = user.user_ID WHERE schedule.shift_ID = '3' AND (schedule.sched_Date BETWEEN '2019-12-01' AND '2019-12-31')  ORDER BY schedule.sched_Date");
-                              					
-                              					while($row = mysqli_fetch_assoc($viewMorning)){
-                                            		echo "<td>".$row['first_name']." ".$row['last_name']."</td>";
-                                            	}
-                                           ?>
-                                        </tr>
-                        
-                             </thead>  
 
 
 
