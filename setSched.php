@@ -17,6 +17,7 @@ include('includes/adminsidebar.php');
 
 $getEmployee = mysqli_query($conn, "SELECT * FROM user");
 $getTime = mysqli_query($conn, "SELECT * FROM timeCheck");
+$getShift = mysqli_query($conn, "SELECT * FROM shift");
                                 
 $resultNo = mysqli_num_rows($getEmployee);
 
@@ -137,13 +138,14 @@ while($resultNo > $itr){
 
                                     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" id="addUserForm" method="post"><?php
                                     $row2 = mysqli_fetch_assoc($getTime);
+                                    $row3 = mysqli_fetch_assoc($getShift);
                                        
                                     $user = $row['user_ID'];      
                                     $employeeID = $row['employee_id'];
                                     $name = $row['first_name']." ".$row['middle_name']." ".$row['last_name'];
                                     $department = $row['department'];
-
                                     ?>
+
                                     
                                     <div style="overflow-x:auto;">
                                     <tbody class="table table-striped">
@@ -167,6 +169,7 @@ while($resultNo > $itr){
                                             <td>
                                                 <select class="form-control" name="shift<?=$counter?>">
                                                     <option value="" disabled selected>Select Shift</option>
+                                                   
                                                     <option>Morning Shift</option>
                                                     <option>Mid-Day Shift</option>
                                                     <option>GY Shift</option>
@@ -207,6 +210,7 @@ while($resultNo > $itr){
     </div>
 </div>
 
+<iframe width=1200px height=350px src=<?php echo "adminDisplaySchedule.php"?> frameborder="yes" scrolling="yes" name="my_iframe2" id="my_iframe2"></iframe>
 
 </div>
 <?php include('includes/footer.php'); ?>

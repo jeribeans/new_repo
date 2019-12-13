@@ -20,7 +20,8 @@ require_once('includes/header.php'); ?>
 	
 	
 	 	if ($row['department'] == 'Admin') {
-			$_SESSION['check'] = $row['user_ID'];
+			$_SESSION["dept_check"] = $row['department'];
+      $_SESSION['check'] = $row['user_ID'];
 			$_SESSION['username'] = $row['employee_ID'];
 			$_SESSION['firstname'] = $row['first_name'];
 			$_SESSION['lastname'] = $row['last_name'];

@@ -93,7 +93,7 @@ else{
     <h3>Pending Requests (<?php echo date('F Y');?>):</h3>     
      
    <?php
-    $getEmployeeRequest = mysqli_query($conn, "SELECT * FROM request WHERE status = 'PENDING' AND request_Date BETWEEN '$START' AND '$END'");
+    $getEmployeeRequest = mysqli_query($conn, "SELECT * FROM request WHERE status = 'PENDING' AND request_Date BETWEEN '$START' AND '$END' ORDER BY request_Date");
     
     $resultNo = mysqli_num_rows($getEmployeeRequest);
         
@@ -110,6 +110,7 @@ else{
                     <th>Name</th>
                     <th>Department</th>
                     <th>Leave type</th>
+                    <th>Date Requested</th>
             </tr>
             </thead>
 
@@ -123,14 +124,16 @@ else{
                         $employeeID = $row['user_ID'];
                         $name = $row2['first_name']." ".$row2['middle_name']." ".$row2['last_name'];
                         $department = $row2['department'];
+                        $request_ID = $row['request_ID'];
                         ?>
                         <div style="overflow-x:auto;">
                         <tbody class="table table-striped">
                             <tr>
-                                <td><a href="viewRequestDetails.php?IDval=<?php echo $employeeID?>" target="top">View Request Detail </td>
+                                <td><a href="viewRequestDetails.php?IDval=<?php echo $employeeID?>&RVal=<?php echo $request_ID?>" target="top">View Request Detail </td>
                                 <td><?php echo $name;?></a></td>
                                 <td><?php echo $department;?></td>
                                 <td><?php echo $row['leave_type'];?></td>
+                                <td><?php echo date("M d, Y - l", strtotime($row['request_Date']));?></td>
                             </tr>
                             <?php 
                     }

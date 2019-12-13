@@ -4,8 +4,9 @@ $userID = $_SESSION['check'];
 
 
 $getID  = $_GET['IDval'];
+$getRVal = $_GET['RVal'];
 
-$getEmployeeRequest = mysqli_query($conn, "SELECT * FROM request where user_ID = '$getID' AND status = 'pending'");
+$getEmployeeRequest = mysqli_query($conn, "SELECT * FROM request where user_ID = '$getID' AND request_ID = '$getRVal'");
 $row2 = mysqli_fetch_array($getEmployeeRequest,MYSQLI_ASSOC);
 
 $employeeRequestID = $row2['user_ID'];

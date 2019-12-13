@@ -33,11 +33,11 @@ include('includes/adminsidebar.php');
 <div class="container-fluid">
     
     <form action="viewPendingRequest.php" method="post" target="my_iframe1">
-        <font size="5"><b>Schedule:</b></font>
+        <font size="5"><b>Requests:</b></font>
         <input type="month" name='dateSearch1' value="<?php echo date('Y-m');?>" ">
         <input type="submit" class="btn btn-def" name='searchDate1' value="Search" />
     </form>
-    <iframe width=800px height=450px src=<?php echo "viewPendingRequest.php"?> frameborder="yes" scrolling="yes" name="my_iframe1" id="my_iframe1"></iframe>
+    <iframe width=800px height=450px src=<?php echo "viewPendingRequest.php"?> frameborder="no" scrolling="yes" name="my_iframe1" id="my_iframe1"></iframe>
 
 
     <form action="adminDisplaySchedule.php" method="post" target="my_iframe2">
@@ -45,7 +45,7 @@ include('includes/adminsidebar.php');
         <input type="month" name='dateSearch2' value="<?php echo date('Y-m');?>" ">
         <input type="submit" class="btn btn-def" name='searchDate2' value="Search" />
     </form>
-    <iframe width=1200px height=350px src=<?php echo "adminDisplaySchedule.php"?> frameborder="yes" scrolling="yes" name="my_iframe2" id="my_iframe2"></iframe>
+    <iframe width=1200px height=350px src=<?php echo "adminDisplaySchedule.php"?> frameborder="no" scrolling="yes" name="my_iframe2" id="my_iframe2"></iframe>
 
 
 

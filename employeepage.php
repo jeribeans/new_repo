@@ -34,7 +34,7 @@ include('includes/sidebar.php');
         <input type="month" name='dateSearch1' value="<?php echo date('Y-m');?>" ">
         <input type="submit" class="btn btn-def" name='searchDate1' value="Search" />
     </form>
-    <iframe width=800px height=450px src=<?php echo "schedule.php"?> frameborder="yes" scrolling="yes" name="my_iframe1" id="my_iframe1"></iframe>
+    <iframe width=800px height=450px src=<?php echo "schedule.php"?> frameborder="yes" scrolling="no" name="my_iframe1" id="my_iframe1"></iframe>
                     
                     
     <form action="attendance.php" method="post" target="my_iframe2">
@@ -42,7 +42,7 @@ include('includes/sidebar.php');
         <input type="month" name='dateSearch2' value="<?php echo date('Y-m');?>" ">
         <input type="submit" class="btn btn-def" name='searchDate2' value="Search" />
     </form>
-    <iframe width=800px height=450px src=<?php echo "attendance.php"?> frameborder="yes" scrolling="yes" name="my_iframe2" id="my_iframe2"></iframe>
+    <iframe width=800px height=450px src=<?php echo "attendance.php"?> frameborder="yes" scrolling="no" name="my_iframe2" id="my_iframe2"></iframe>
 
 
 
@@ -51,7 +51,7 @@ include('includes/sidebar.php');
         <input type="month" name='dateSearch3' value="<?php echo date('Y-m');?>" ">
         <input type="submit" class="btn btn-def" name='searchDate3' value="Search" />
     </form>
-    <iframe width=800px height=450px src=<?php echo "viewEmpRequest.php"?> frameborder="yes" scrolling="yes" name="my_iframe3" id="my_iframe3"></iframe>
+    <iframe width=800px height=450px src=<?php echo "viewEmpRequest.php"?> frameborder="no" scrolling="yes" name="my_iframe3" id="my_iframe3"></iframe>
 
     
 
