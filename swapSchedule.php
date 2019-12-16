@@ -163,17 +163,15 @@ while($resultNo > $itr){
 
 
 
-<h3> Swap Date: </h3>
 
 
-<form action="insertHere.php" method="post" target="my_iframe1">
-        <font size="5"><b>Date:</b></font>
+<br>
+<form action="swapResult.php" method="post" target="my_iframe1">
+        <font size="5"><b>Swap Date:</b></font>
         <input type="date" name='dateSearch1' value="<?php echo date('m/d/Y', strtotime($test));?>" ">
         <input type="submit" class="btn btn-def" name='searchDate1' value="Search" />
-        <?php echo date('Y m d', strtotime($test));?>
-        <?php echo $OGSched;?>
-    </form>
-    <iframe width=800px height=450px src=<?php echo "viewPendingRequest.php"?> frameborder="no" scrolling="yes" name="my_iframe1" id="my_iframe1"></iframe>
+</form>
+    <iframe width=900px height=450px src=<?php echo "swapResult.php"?> frameborder="no" scrolling="yes" name="my_iframe1" id="my_iframe1"></iframe>
 
  <h3> Reference: </h3>
 <iframe width=1200px height=350px src=<?php echo "adminDisplaySchedule.php"?> frameborder="yes" scrolling="yes" name="my_iframe2" id="my_iframe2"></iframe>
