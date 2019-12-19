@@ -41,7 +41,7 @@ if(isset($_POST['searchDate1'])){
 
      <?php
         
-        $getOGSched = mysqli_query($conn, "SELECT first_name, last_name, schedule_ID, sched_Date, shift, department from schedule JOIN shift ON schedule.shift_ID = shift.shift_ID JOIN user ON schedule.user_ID = user.user_ID WHERE schedule.sched_Date = '$START1' ");
+        $getOGSched = mysqli_query($conn, "SELECT first_name, last_name, schedule_ID, sched_Date, shift, department from schedule JOIN shift ON schedule.shift_ID = shift.shift_ID JOIN user ON schedule.user_ID = user.user_ID WHERE schedule.sched_Date = '$START1' ORDER BY shift.shift_ID");
         
                         
         $resultNo = mysqli_num_rows($getOGSched);

@@ -34,7 +34,7 @@ if(isset($_POST['searchDate1'])){
     $END1 = date('Y-m-t',strtotime($START1));
 
     ?>
-    <h3>Pending Requests (<?php echo date('F Y', strtotime($START1))?>):</h3>     
+    <h3>Pending Leave Requests (<?php echo date('F Y', strtotime($START1))?>):</h3>     
      
    <?php
     $getEmployeeRequest = mysqli_query($conn, "SELECT * FROM request WHERE status = 'PENDING' AND request_Date BETWEEN '$START1' AND '$END1'");
@@ -90,7 +90,7 @@ if(isset($_POST['searchDate1'])){
 else{
 
     ?>
-    <h3>Pending Requests (<?php echo date('F Y');?>):</h3>     
+    <h3>Pending Leave Requests (<?php echo date('F Y');?>):</h3>     
      
    <?php
     $getEmployeeRequest = mysqli_query($conn, "SELECT * FROM request WHERE status = 'PENDING' AND request_Date BETWEEN '$START' AND '$END' ORDER BY request_Date");
