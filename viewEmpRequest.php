@@ -1,9 +1,8 @@
 <?php include('includes/header.php'); ?>
 <?php 
- if ($_SESSION['dept_check']!="emp"){
+if ($_SESSION['dept_check']!="emp"){
         header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/index2.php");
  }
-
 
 $dept_check = $_SESSION["dept_check"];
 $check = $_SESSION['check'];

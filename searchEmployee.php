@@ -5,10 +5,13 @@ $username = $_SESSION['username'];
 $first_name = $_SESSION['firstname'];
 $last_name = $_SESSION['lastname'];
 $department = $_SESSION['department'];
-
-if ($_SESSION['department']!='Admin'){
-    header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/index.php");
-} 
+$dept_check = $_SESSION['department'];
+if ($dept_check != "SuperAdmin"){
+    $team = $_SESSION['team'];
+}
+if (!in_array($_SESSION['department'], array('SuperAdmin', 'AdminNOC', 'AdminFS', 'AdminCS'))) {
+  header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/index2.php");
+}
     
 include('includes/navbar.php');
 include('includes/adminsidebar.php'); 
@@ -31,7 +34,17 @@ include('includes/adminsidebar.php');
 
 <div class="container-fluid">
 	
-        <legend><h2>Search Employee Attendance</h2></legend>	
+       
+<?php 
+    if($dept_check == "SuperAdmin"){
+        echo "<LEGEND><h2>Search Employee Attendance </h2></LEGEND>";
+    }
+    else{
+        echo "<LEGEND><h2>Search Employee Attendance (". $team." Department) </h2></LEGEND>";   
+    }
+
+
+?>
 
         <div class="container">
                 <div class="row">

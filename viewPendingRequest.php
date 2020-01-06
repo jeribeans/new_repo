@@ -2,10 +2,9 @@
 
 require_once('includes/header.php'); 
 
-
-if ($_SESSION['department']!='Admin'){
-    header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/index2.php");
-} 
+if (!in_array($_SESSION['department'], array('Admin', 'SuperAdmin', 'AdminNOC', 'AdminFS', 'AdminCS'))) {
+  header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/index2.php");
+}
 
 
 $userID = $_SESSION['check'];
@@ -13,7 +12,10 @@ $username = $_SESSION['username'];
 $first_name = $_SESSION['firstname'];
 $last_name = $_SESSION['lastname'];
 $department = $_SESSION['department'];
-
+$dept_check = $_SESSION['department'];
+if ($dept_check != "SuperAdmin"){
+    $team = $_SESSION['team'];
+}
 
 
 $START = date('Y-m-01');
@@ -37,7 +39,14 @@ if(isset($_POST['searchDate1'])){
     <h3>Pending Leave Requests (<?php echo date('F Y', strtotime($START1))?>):</h3>     
      
    <?php
-    $getEmployeeRequest = mysqli_query($conn, "SELECT * FROM request WHERE status = 'PENDING' AND request_Date BETWEEN '$START1' AND '$END1'");
+
+    if ($dept_check == "SuperAdmin"){
+        $getEmployeeRequest = mysqli_query($conn, "SELECT * FROM request WHERE status = 'PENDING' AND request_Date BETWEEN '$START1' AND '$END1'");        
+    }
+    else{
+        $getEmployeeRequest = mysqli_query($conn, "SELECT * FROM request JOIN user ON request.user_ID = user.user_ID WHERE department = '$team' AND status = 'PENDING' AND request_Date BETWEEN '$START1' AND '$END1'");    
+    }
+    
     
     $resultNo = mysqli_num_rows($getEmployeeRequest);
         
@@ -93,7 +102,12 @@ else{
     <h3>Pending Leave Requests (<?php echo date('F Y');?>):</h3>     
      
    <?php
-    $getEmployeeRequest = mysqli_query($conn, "SELECT * FROM request WHERE status = 'PENDING' AND request_Date BETWEEN '$START' AND '$END' ORDER BY request_Date");
+    if ($dept_check == "SuperAdmin"){
+        $getEmployeeRequest = mysqli_query($conn, "SELECT * FROM request WHERE status = 'PENDING' AND request_Date BETWEEN '$START' AND '$END'");        
+    }
+    else{
+        $getEmployeeRequest = mysqli_query($conn, "SELECT * FROM request JOIN user ON request.user_ID = user.user_ID WHERE department = '$team' AND status = 'PENDING' AND request_Date BETWEEN '$START' AND '$END'");    
+    }
     
     $resultNo = mysqli_num_rows($getEmployeeRequest);
         

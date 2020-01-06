@@ -19,7 +19,7 @@ require_once('includes/header.php'); ?>
 	
 	
 	
-	 	if ($row['department'] == 'Admin') {
+	 	if ($row['department'] == 'SuperAdmin') {
 			$_SESSION["dept_check"] = $row['department'];
       $_SESSION['check'] = $row['user_ID'];
 			$_SESSION['username'] = $row['employee_ID'];
@@ -30,6 +30,42 @@ require_once('includes/header.php'); ?>
       header('Location:adminpage.php');
 
       } 
+
+      elseif ($row['department'] == 'AdminNOC'){
+      $_SESSION["dept_check"] = "emp";
+      $_SESSION['check'] = $row['user_ID'];
+      $_SESSION['username'] = $row['employee_ID'];
+      $_SESSION['firstname'] = $row['first_name'];
+      $_SESSION['lastname'] = $row['last_name'];
+      $_SESSION['department'] = $row['department'];
+      $_SESSION['team'] = "NOC";
+      
+      header('Location:adminpage.php');
+    }
+
+      elseif ($row['department'] == 'AdminFS'){
+      $_SESSION["dept_check"] = "emp";
+      $_SESSION['check'] = $row['user_ID'];
+      $_SESSION['username'] = $row['employee_ID'];
+      $_SESSION['firstname'] = $row['first_name'];
+      $_SESSION['lastname'] = $row['last_name'];
+      $_SESSION['department'] = $row['department'];
+      $_SESSION['team'] = "FS";
+      
+      header('Location:adminpage.php');
+    }
+
+      elseif ($row['department'] == 'AdminCS'){
+      $_SESSION["dept_check"] = "emp";
+      $_SESSION['check'] = $row['user_ID'];
+      $_SESSION['username'] = $row['employee_ID'];
+      $_SESSION['firstname'] = $row['first_name'];
+      $_SESSION['lastname'] = $row['last_name'];
+      $_SESSION['department'] = $row['department'];
+      $_SESSION['team'] = "CS";
+      
+      header('Location:adminpage.php');
+    }
 
       elseif ($row['department'] == 'NOC'){
       $_SESSION["dept_check"] = "emp";

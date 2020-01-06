@@ -1,7 +1,8 @@
 <?php include('includes/header.php'); ?>
 <?php 
- if ($_SESSION['usertype']!=102) 
-        header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/index.php");
+ if (!in_array($_SESSION['department'], array('Admin', 'SuperAdmin', 'AdminNOC', 'AdminFS', 'AdminCS'))) {
+  header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/index2.php");
+}
 ?>
 <style type="text/css"><?php include('includes/common.css'); ?></style>
 <?php include('includes/navbar.php'); ?>

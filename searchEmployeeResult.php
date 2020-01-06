@@ -5,7 +5,13 @@ $username = $_SESSION['username'];
 $first_name = $_SESSION['firstname'];
 $last_name = $_SESSION['lastname'];
 $department = $_SESSION['department'];
-
+$dept_check = $_SESSION['department'];
+if ($dept_check != "SuperAdmin"){
+    $team = $_SESSION['team'];
+}
+if (!in_array($_SESSION['department'], array('Admin', 'SuperAdmin', 'AdminNOC', 'AdminFS', 'AdminCS'))) {
+  header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/index2.php");
+}
 
 ?>
 
@@ -21,13 +27,19 @@ if(isset($_POST['search'])){
     $END = $_POST['endDate'];
 
 
+    if ($dept_check == "SuperAdmin"){
+        $searchEmployee = mysqli_query($conn,"SELECT * FROM user WHERE (employee_ID = '%$input%') OR (concat(first_name,' ',last_name) LIKE '%$input%') OR (email LIKE '%$input%') OR (contact_num = '%$input%')");   
+    }
+    else {
+        $searchEmployee = mysqli_query($conn,"SELECT * FROM user WHERE (department = '$team') AND (employee_ID = '%$input%') OR (concat(first_name,' ',last_name) LIKE '%$input%') OR (email LIKE '%$input%') OR (contact_num = '%$input%')");   
+        
+    }
     
-    $searchEmployee = mysqli_query($conn,"SELECT * FROM user WHERE employee_ID LIKE '%$input%' OR concat(first_name,' ',last_name) LIKE '%$input%' OR email LIKE '%$input%' OR contact_num LIKE '%$input%'");
     $row = mysqli_fetch_array($searchEmployee,MYSQLI_ASSOC);
     $resultNo = mysqli_num_rows($searchEmployee);
 
     if(!$resultNo){
-        echo "No results";
+        echo "<h4>No results found (Kindly check if Employee Information is correct or under your department)</h4>";
     }else{
         echo "<h4>Employee ID no: <b>".$row['employee_id']."</b></h4>";
         echo "<h4>Name: <b>".$row['first_name']." ".$row['last_name']."</b></h4>";
@@ -101,9 +113,7 @@ if(isset($_POST['search'])){
             <?php 
         }
     }
-    else {
-        echo "<h4>Check query </h4>";
-    }
+    
 
 ?> </table>
 

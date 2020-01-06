@@ -5,19 +5,30 @@ $username = $_SESSION['username'];
 $first_name = $_SESSION['firstname'];
 $last_name = $_SESSION['lastname'];
 $department = $_SESSION['department'];
+$dept_check = $_SESSION['department'];
+if ($dept_check != "SuperAdmin"){
+    $team = $_SESSION['team'];
+}
 
-if ($_SESSION['department']!='Admin'){
-    header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/index.php");
-} 
+if (!in_array($_SESSION['department'], array('Admin', 'SuperAdmin', 'AdminNOC', 'AdminFS', 'AdminCS'))) {
+  header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/index2.php");
+}
     
 include('includes/navbar.php');
 include('includes/adminsidebar.php');    
 
 
+if($dept_check == "SuperAdmin"){
+    $getEmployee = mysqli_query($conn, "SELECT * FROM user");
+    $getTime = mysqli_query($conn, "SELECT * FROM timeCheck");
+    $getShift = mysqli_query($conn, "SELECT * FROM shift");
+}
+else{
+    $getEmployee = mysqli_query($conn, "SELECT * FROM user WHERE department = '$team'");
+    $getTime = mysqli_query($conn, "SELECT * FROM timeCheck");
+    $getShift = mysqli_query($conn, "SELECT * FROM shift");   
+}
 
-$getEmployee = mysqli_query($conn, "SELECT * FROM user");
-$getTime = mysqli_query($conn, "SELECT * FROM timeCheck");
-$getShift = mysqli_query($conn, "SELECT * FROM shift");
                                 
 $resultNo = mysqli_num_rows($getEmployee);
 
@@ -100,7 +111,17 @@ while($resultNo > $itr){
 <style type="text/css"><?php include('includes/common.css'); ?></style>
 
 <div class="container-fluid">
-    <legend><h2>Set Employee Shifts</h2></legend>	
+    
+<?php 
+    if($dept_check == "SuperAdmin"){
+        echo "<LEGEND><h2>Set Employee Shifts </h2></LEGEND>";
+    }
+    else{
+        echo "<LEGEND><h2>Set Employee Shifts (". $team." Department) </h2></LEGEND>";   
+    }
+
+
+?>	
 
     <?php
     

@@ -5,10 +5,13 @@ $username = $_SESSION['username'];
 $first_name = $_SESSION['firstname'];
 $last_name = $_SESSION['lastname'];
 $department = $_SESSION['department'];
-
-if ($_SESSION['department']!='Admin'){
-    header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/index.php");
-} 
+$dept_check = $_SESSION['department'];
+if ($dept_check != "SuperAdmin"){
+    $team = $_SESSION['team'];
+}
+if (!in_array($_SESSION['department'], array('Admin', 'SuperAdmin', 'AdminNOC', 'AdminFS', 'AdminCS'))) {
+  header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/index2.php");
+}
     
 include('includes/navbar.php');
 include('includes/adminsidebar.php'); 
@@ -19,13 +22,30 @@ include('includes/adminsidebar.php');
 
 <div class="container-fluid">
 	
-        <legend><h2>Edit User Information</h2></legend>	
+       
+<?php 
+    if($dept_check == "SuperAdmin"){
+        echo "<LEGEND><h2>Edit User Information </h2></LEGEND>";
+    }
+    else{
+        echo "<LEGEND><h2>Edit User Information (". $team." Department) </h2></LEGEND>";   
+    }
+
+
+?>
 
         
         
         <?php
-        $getEmployee = mysqli_query($conn, "SELECT * FROM user");
-        $getTime = mysqli_query($conn, "SELECT * FROM timeCheck");
+        if ($dept_check == "SuperAdmin"){
+            $getEmployee = mysqli_query($conn, "SELECT * FROM user ORDER BY user_ID");
+            $getTime = mysqli_query($conn, "SELECT * FROM timeCheck");
+        }
+        else{
+            $getEmployee = mysqli_query($conn, "SELECT * FROM user WHERE department = '$team' ORDER BY user_ID");
+            $getTime = mysqli_query($conn, "SELECT * FROM timeCheck");    
+        }
+        
                         
         $resultNo = mysqli_num_rows($getEmployee);
         

@@ -8,14 +8,23 @@ $username = $_SESSION['username'];
 $first_name = $_SESSION['firstname'];
 $last_name = $_SESSION['lastname'];
 $department = $_SESSION['department'];
+$dept_check = $_SESSION['department'];
+if ($dept_check != "SuperAdmin"){
+    $team = $_SESSION['team'];
+}
 
 $START = date('Y-m-01')."<br>";
 $END = date('Y-m-t',strtotime('this month'))."<br>";
 
 
-if ($_SESSION['department']!='Admin'){
-    header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/index2.php");
-} 
+if (!in_array($_SESSION['department'], array('SuperAdmin', 'AdminNOC', 'AdminFS', 'AdminCS'))) {
+  header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/index2.php");
+}
+
+
+// if ($_SESSION['department']!='Admin'){
+//     header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/index2.php");
+// } 
     
 include('includes/navbar.php');
 include('includes/adminsidebar.php'); 
@@ -23,8 +32,17 @@ include('includes/adminsidebar.php');
 ?>
 
 
+<?php 
+    if($dept_check == "SuperAdmin"){
+        echo "<LEGEND><h2>Admin Homepage </h2></LEGEND>";
+    }
+    else{
+        echo "<LEGEND><h2>Admin Homepage (". $team." Department) </h2></LEGEND>";   
+    }
 
-<LEGEND><h2>Admin Homepage</h2></LEGEND>
+
+?>
+
 
 
 <style type="text/css"><?php include('includes/common.css'); ?></style>

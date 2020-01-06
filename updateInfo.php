@@ -5,10 +5,13 @@ $username = $_SESSION['username'];
 $first_name = $_SESSION['firstname'];
 $last_name = $_SESSION['lastname'];
 $department = $_SESSION['department'];
-
-if ($_SESSION['department']!='Admin'){
-    header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/index.php");
-} 
+$dept_check = $_SESSION['department'];
+if ($dept_check != "SuperAdmin"){
+    $team = $_SESSION['team'];
+}
+if (!in_array($_SESSION['department'], array('Admin', 'SuperAdmin', 'AdminNOC', 'AdminFS', 'AdminCS'))) {
+  header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/index2.php");
+}
     
 include('includes/navbar.php');
 include('includes/adminsidebar.php'); 
@@ -43,18 +46,26 @@ if (isset($_POST['submit'])){
   $password = mysqli_real_escape_string($conn, $_POST['password1']);
   $dept = mysqli_real_escape_string($conn, $_POST['department']);
 
-  if ($dept == "Administrator"){
-    $department = "Admin";
-  }
-  elseif ($dept == "Network Operation Center"){
-    $department = "NOC";
-  }
-  elseif ($dept == "Field Support"){
-    $department = "FS";
-  }
-  else{
-    $department = "CS";
-  }
+  if ($dept == "Super Administrator"){
+        $department = "SuperAdmin";
+          }
+      elseif ($dept == "Administrator NOC"){
+        $department = "AdminNOC";
+      }
+      elseif ($dept == "Administrator CS"){
+        $department = "AdminCS";
+      }
+      elseif ($dept == "Administrator FS"){
+        $department = "AdminFS";
+      }
+      elseif ($dept == "Network Operations Center"){
+        $department = "NOC";
+      }elseif ($dept == "Field Support"){
+        $department = "FS";
+      }
+      else{
+        $department = "CS";
+      }
 
   if(empty($password)){
 
@@ -151,13 +162,52 @@ if (isset($_POST['submit'])){
 
           <div class="form-group">
                 <label for="sel1">Department:</label>
-                <select class="form-control" name="department" required="true">
-                     <option value="" disabled selected>Select Department</option>
-                    <option>Administrator</option>
-                    <option>Network Operation Center</option>
+                <?php 
+
+                if($dept_check == "SuperAdmin"){
+                  ?>
+                  <select class="form-control" name="department" required="true">
+                    <option value="" disabled selected>Select Department</option>
+                    <option>Super Administrator</option>
+                    <option>Administrator NOC</option>
+                    <option>Administrator CS</option>
+                    <option>Administrator FS</option>
+                    <option>Network Operations Center</option>
                     <option>Field Support</option>
                     <option>Customer Support</option>
+                  </select> 
+                  <?php 
+                }
+                elseif($dept_check == "AdminCS"){
+                  ?>
+                  <select class="form-control" name="department" required="true">
+                    <option value="" disabled selected>Select Department</option>
+                    <option>Administrator CS</option>
+                    <option>Customer Support</option>
                   </select>
+                <?php 
+                }
+                elseif($dept_check == "AdminFS") {
+                ?> 
+                <select class="form-control" name="department" required="true">
+                    <option value="" disabled selected>Select Department</option>
+                    <option>Administrator FS</option>
+                    <option>Field Support</option>
+                  </select>  
+                <?php
+                }
+                else{
+                ?> 
+                <select class="form-control" name="department" required="true">
+                    <option value="" disabled selected>Select Department</option>
+                    <option>Administrator NOC</option>
+                    <option>Network Operations Center</option>
+                  </select>  
+                <?php
+                }
+
+
+                ?>
             </div> 
 
 

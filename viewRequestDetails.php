@@ -1,7 +1,11 @@
 <?php require_once('includes/header.php'); 
 
 $userID = $_SESSION['check'];
-
+$department = $_SESSION['department'];
+$dept_check = $_SESSION['department'];
+if ($dept_check != "SuperAdmin"){
+    $team = $_SESSION['team'];
+}
 
 $getID  = $_GET['IDval'];
 $getRVal = $_GET['RVal'];
@@ -62,8 +66,9 @@ if (isset($_POST['decline'])){
 
 
 <?php 
- if ($_SESSION['department']!='Admin') 
-        header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/index.php");
+ if (!in_array($_SESSION['department'], array('Admin', 'SuperAdmin', 'AdminNOC', 'AdminFS', 'AdminCS'))) {
+  header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/index2.php");
+}
 ?>
 <style type="text/css"><?php include('includes/common.css'); ?></style>
 <?php include('includes/navbar.php'); ?>
