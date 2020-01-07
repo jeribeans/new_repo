@@ -21,10 +21,6 @@ if (!in_array($_SESSION['department'], array('SuperAdmin', 'AdminNOC', 'AdminFS'
   header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/index2.php");
 }
 
-
-// if ($_SESSION['department']!='Admin'){
-//     header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/index2.php");
-// } 
     
 include('includes/navbar.php');
 include('includes/adminsidebar.php'); 

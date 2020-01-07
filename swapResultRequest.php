@@ -1,19 +1,19 @@
 <?php
 require_once('includes/header.php'); 
 
-if (!in_array($_SESSION['department'], array('SuperAdmin', 'AdminNOC', 'AdminFS', 'AdminCS'))) {
-  header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/index2.php");
-}
- 
-$userID = $_SESSION['check'];
+
+$dept_check = $_SESSION["dept_check"];
+$check = $_SESSION['check'];
 $username = $_SESSION['username'];
-$first_name = $_SESSION['firstname'];
-$last_name = $_SESSION['lastname'];
+$firstname = $_SESSION['firstname'];
+$lastname = $_SESSION['lastname'];
 $department = $_SESSION['department'];
-$dept_check = $_SESSION['department'];
-if ($dept_check != "SuperAdmin"){
-    $team = $_SESSION['team'];
-}
+
+
+
+ if ($_SESSION['dept_check']!="emp"){
+        header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/index2.php");
+ }
 
 
 $START = date('Y-m-01');
@@ -75,12 +75,12 @@ if(isset($_POST['searchDate1'])){
                         <tbody class="table table-striped">
                                         <tr>
                                              
-                                            <form action="swapResult.php" method="post" target="my_iframe1">
+                                            <form action="swapResultRequest.php" method="post" target="my_iframe1">
                                                 <td><input type="text" name='SwapName' value="<?php echo $SwapName;?>" readonly="true"></td>
                                                 <td><input type="text" name='SwapDate' value="<?php echo $SwapSched;?>" readonly="true" "></td>
                                                 <td><input type="text" name='SwapShift' value="<?php echo $SwapShift;?>" readonly="true" "></td>
                                                 <td><input type="text" name='SwapDept' value="<?php echo $SwapDept;?>" readonly="true" "></td>
-                                                <td><input type="submit" class="btn btn-def" name='swap' value="Swap" /></td>
+                                                <td><input type="submit" class="btn btn-def" name='swap' value="Request Swap" /></td>
                                                 
                                             </form>
                                             

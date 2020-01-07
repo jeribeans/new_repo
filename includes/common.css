@@ -17,6 +17,8 @@ body {
 .navbar-offset {
     top: 37px; /*Offsets the top navbar 37px from the top of the viewport*/
 }
+
+
 .container-fluid.scrollable {
   height: 100%; /*Sets the scrollable area to 100% of the viewport*/
   overflow: auto; /*Allows the scrollable area to have a scrollbar based on the height of its content*/
@@ -137,11 +139,11 @@ footer {
 /* navbar */
 .navbar {
     margin-bottom: 0;
-    background-color: #2d2d30;
+    background-color: #ffff;
     border: 0;
-    font-size: 13px !important;
+    font-size: 14px !important;
     letter-spacing: 4px;
-    opacity:0.9;
+    opacity:100;
 }
 
 .navbar li a , .navbar .navbar-brand{ 

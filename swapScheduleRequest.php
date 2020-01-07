@@ -1,21 +1,22 @@
 <?php require_once('includes/header.php'); 
-$userID = $_SESSION['check'];
+
+
+$dept_check = $_SESSION["dept_check"];
+$check = $_SESSION['check'];
 $username = $_SESSION['username'];
-$first_name = $_SESSION['firstname'];
-$last_name = $_SESSION['lastname'];
+$firstname = $_SESSION['firstname'];
+$lastname = $_SESSION['lastname'];
 $department = $_SESSION['department'];
-$dept_check = $_SESSION['department'];
-if ($dept_check != "SuperAdmin"){
-    $team = $_SESSION['team'];
-}
 
 
-if (!in_array($_SESSION['department'], array('SuperAdmin', 'AdminNOC', 'AdminFS', 'AdminCS'))) {
-  header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/index2.php");
-}
+
+ if ($_SESSION['dept_check']!="emp"){
+        header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/index2.php");
+ }
+
     
 include('includes/navbar.php');
-include('includes/adminsidebar.php');    
+include('includes/sidebar.php');   
 $getEmployee = mysqli_query($conn, "SELECT * FROM user");
 $getTime = mysqli_query($conn, "SELECT * FROM timeCheck");
 $getShift = mysqli_query($conn, "SELECT * FROM shift");
@@ -152,13 +153,12 @@ while($resultNo > $itr){
 
 
 <br>
-<form action="swapResult.php" method="post" target="my_iframe1">
+<form action="swapResultRequest.php" method="post" target="my_iframe1">
         <font size="5"><b>Swap Date:</b></font>
         <input type="date" name='dateSearch1' value="<?php echo date('m/d/Y', strtotime($test));?>" ">
         <input type="submit" class="btn btn-def" name='searchDate1' value="Search" />
 </form>
-    <iframe width=900px height=450px src=<?php echo "swapResult.php"?> frameborder="no" scrolling="yes" name="my_iframe1" id="my_iframe1"></iframe>
- <h3> Reference: </h3>
-<iframe width=1200px height=350px src=<?php echo "adminDisplaySchedule.php"?> frameborder="yes" scrolling="yes" name="my_iframe2" id="my_iframe2"></iframe>
+    <iframe width=900px height=450px src=<?php echo "swapResultRequest.php"?> frameborder="no" scrolling="yes" name="my_iframe1" id="my_iframe1"></iframe>
+ 
 </div>
 <?php include('includes/footer.php'); ?>

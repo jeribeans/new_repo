@@ -94,7 +94,7 @@ if(isset($_POST['searchDate1'])){
     
 } else{
 
-    $viewSchedule = mysqli_query($conn,"SELECT user.employee_ID, user.first_name, user.last_name, user.department, schedule.sched_Date, shift.shift, schedule.created_at FROM schedule JOIN shift ON schedule.shift_ID = shift.shift_ID JOIN user ON schedule.user_ID = user.user_ID WHERE schedule.user_ID = '$check' AND schedule.sched_Date  BETWEEN '$START' AND '$END' ORDER BY  schedule.sched_Date");
+    $viewSchedule = mysqli_query($conn,"SELECT user.employee_ID, user.first_name, user.last_name, user.department, schedule.sched_Date, schedule.schedule_ID, shift.shift, schedule.created_at FROM schedule JOIN shift ON schedule.shift_ID = shift.shift_ID JOIN user ON schedule.user_ID = user.user_ID WHERE schedule.user_ID = '$check' AND schedule.sched_Date  BETWEEN '$START' AND '$END' ORDER BY  schedule.sched_Date");
     $resultNo2 = mysqli_num_rows($viewSchedule);
 
     
@@ -129,9 +129,9 @@ if(isset($_POST['searchDate1'])){
                                     <tbody class="table table-striped">
                                 
                                         <tr>
-                                            <td>
+                                            <td><a href="swapScheduleRequest.php?IDval=<?php echo $row['schedule_ID']?>" target="top">
                                                 <?php echo date("M d, Y - l", strtotime($printDate));?>
-                                            </td>
+                                            </a></td>
 
                                             <td>
                                                 <?php echo $printShift;?>

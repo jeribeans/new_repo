@@ -32,7 +32,7 @@ require_once('includes/header.php'); ?>
       } 
 
       elseif ($row['department'] == 'AdminNOC'){
-      $_SESSION["dept_check"] = "emp";
+      $_SESSION["dept_check"] = $row['department'];
       $_SESSION['check'] = $row['user_ID'];
       $_SESSION['username'] = $row['employee_ID'];
       $_SESSION['firstname'] = $row['first_name'];
@@ -44,7 +44,7 @@ require_once('includes/header.php'); ?>
     }
 
       elseif ($row['department'] == 'AdminFS'){
-      $_SESSION["dept_check"] = "emp";
+      $_SESSION["dept_check"] =$row['department'];
       $_SESSION['check'] = $row['user_ID'];
       $_SESSION['username'] = $row['employee_ID'];
       $_SESSION['firstname'] = $row['first_name'];
@@ -56,7 +56,7 @@ require_once('includes/header.php'); ?>
     }
 
       elseif ($row['department'] == 'AdminCS'){
-      $_SESSION["dept_check"] = "emp";
+      $_SESSION["dept_check"] = $row['department'];
       $_SESSION['check'] = $row['user_ID'];
       $_SESSION['username'] = $row['employee_ID'];
       $_SESSION['firstname'] = $row['first_name'];
