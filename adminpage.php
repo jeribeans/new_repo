@@ -53,6 +53,13 @@ include('includes/adminsidebar.php');
     </form>
     <iframe width=800px height=450px src=<?php echo "viewPendingRequest.php"?> frameborder="no" scrolling="yes" name="my_iframe1" id="my_iframe1"></iframe>
 
+   <form action="viewPendingSwapRequest.php" method="post" target="my_iframe3">
+        <font size="5"><b>Swap Requests:</b></font>
+        <input type="month" name='dateSearch3' value="<?php echo date('Y-m');?>" ">
+        <input type="submit" class="btn btn-def" name='searchDate3' value="Search" />
+    </form>
+    <iframe width=800px height=450px src=<?php echo "viewPendingSwapRequest.php"?> frameborder="no" scrolling="yes" name="my_iframe3" id="my_iframe3"></iframe>
+
 
     <form action="adminDisplaySchedule.php" method="post" target="my_iframe2">
         <font size="5"><b>Schedule:</b></font>

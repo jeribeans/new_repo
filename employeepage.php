@@ -47,11 +47,19 @@ include('includes/sidebar.php');
 
 
     <form action="viewEmpRequest.php" method="post" target="my_iframe3">
-        <font size="5"><b>Request:</b></font>
+        <font size="5"><b>Leave Request:</b></font>
         <input type="month" name='dateSearch3' value="<?php echo date('Y-m');?>" ">
         <input type="submit" class="btn btn-def" name='searchDate3' value="Search" />
     </form>
     <iframe width=800px height=450px src=<?php echo "viewEmpRequest.php"?> frameborder="no" scrolling="yes" name="my_iframe3" id="my_iframe3"></iframe>
+
+
+    <form action="viewSwapRequest.php" method="post" target="my_iframe4">
+        <font size="5"><b>Swap Request:</b></font>
+        <input type="month" name='dateSearch4' value="<?php echo date('Y-m');?>" ">
+        <input type="submit" class="btn btn-def" name='searchDate4' value="Search" />
+    </form>
+    <iframe width=800px height=450px src=<?php echo "viewSwapRequest.php"?> frameborder="no" scrolling="yes" name="my_iframe4" id="my_iframe4"></iframe>
 
     
 
