@@ -29,7 +29,7 @@ if(isset($_POST['searchDate4'])){
     $END1 = date('Y-m-t',strtotime($START1));
 
     ?>
-    <h3>Swap Request Status:(<?php echo date('F Y', strtotime($END1));?>):</h3>     
+    <h3> Pending Swap Request Status:(<?php echo date('F Y', strtotime($END1));?>):</h3>     
     <?php
     $getEmployeeRequest = mysqli_query($conn, "SELECT requested_sched_ID, sched_Date, shift, swap_request_ID, status FROM swaprequest JOIN schedule ON schedule.schedule_ID = swaprequest.requester_sched_ID JOIN shift ON shift.shift_ID = schedule.shift_ID JOIN user ON  user.user_ID = schedule.user_ID WHERE user.user_ID = '$check' AND date_requested BETWEEN '$START1' AND '$END1'");
 
@@ -107,10 +107,10 @@ if(isset($_POST['searchDate4'])){
 else{
 
      ?>
-    <h3>Swap Request Status:(<?php echo date('F Y');?>):</h3>     
+    <h3>Pending Swap Request Status:(<?php echo date('F Y');?>):</h3>     
      
     <?php
-    $getEmployeeRequest = mysqli_query($conn, "SELECT requested_sched_ID, sched_Date, shift, swap_request_ID, status FROM swaprequest JOIN schedule ON schedule.schedule_ID = swaprequest.requester_sched_ID JOIN shift ON shift.shift_ID = schedule.shift_ID JOIN user ON  user.user_ID = schedule.user_ID WHERE user.user_ID = '$check'");
+    $getEmployeeRequest = mysqli_query($conn, "SELECT requested_sched_ID, sched_Date, shift, swap_request_ID, status FROM swaprequest JOIN schedule ON schedule.schedule_ID = swaprequest.requester_sched_ID JOIN shift ON shift.shift_ID = schedule.shift_ID JOIN user ON  user.user_ID = schedule.user_ID WHERE user.user_ID = '$check'  AND status <> 'APPROVED' ");
 
 
     $resultNo = mysqli_num_rows($getEmployeeRequest);
@@ -162,9 +162,8 @@ else{
 
                                 if($row['status'] == "PENDING"){
                                     echo "<td bgcolor='#ffa500'><b>".$row['status']."</b></td>";    
-                                }elseif($row['status'] == "APPROVED"){
-                                    echo "<td bgcolor='#00FF00'><b>".$row['status']."</b></td>";    
-                                }else{
+                                }    
+                                else{
                                     echo "<td bgcolor='#FF0000'><b>".$row['status']."</b></td>";    
                                 }
                                 

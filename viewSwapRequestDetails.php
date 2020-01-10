@@ -16,19 +16,19 @@ if (isset($_POST['approve'])){
     $test = $_POST['requestid'];
     $requester_sched_ID = $_POST['requester_sched_id'];
     $requested_sched_ID = $_POST['requested_sched_id'];
-    $requested_user_ID = $_POST['requester_user_id'];
+    $requester_user_ID = $_POST['requester_user_id'];
     $requested_user_ID = $_POST['requested_user_id'];
 
 
-    // $sql = "UPDATE swaprequest SET status ='APPROVED', approval_date = '$created_at' WHERE swap_request_ID = '$test' ";
-    // $query = mysqli_query($conn,$sql);
-
+    $sql = "UPDATE swaprequest SET status ='APPROVED', approval_date = '$created_at' WHERE swap_request_ID = '$test' ";
+    $query = mysqli_query($conn,$sql);
+    
     $updateRequesterSchedule = mysqli_query($conn, "UPDATE schedule SET user_ID = '$requester_user_ID' WHERE schedule_ID = '$requested_sched_ID'"); 
     $updateRequestedSchedule = mysqli_query($conn, "UPDATE schedule SET user_ID = '$requested_user_ID' WHERE schedule_ID = '$requester_sched_ID'");
 
 
 
-  //header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/adminpage.php");
+    header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/adminpage.php");
 
 
   }
@@ -74,10 +74,10 @@ $getID  = $_GET['IDval'];
 
 
 if ($dept_check == "SuperAdmin"){
-        $getEmployeeRequest = mysqli_query($conn, "SELECT user.user_ID, first_name, last_name, requested_sched_ID, requester_sched_ID, sched_Date, shift, swap_request_ID, date_requested, status FROM swaprequest JOIN schedule ON schedule.schedule_ID = swaprequest.requester_sched_ID JOIN shift ON shift.shift_ID = schedule.shift_ID JOIN user ON  user.user_ID = schedule.user_ID  WHERE swap_request_ID = '$getID'");        
+        $getEmployeeRequest = mysqli_query($conn, "SELECT swaprequest.requester_user_ID, first_name, last_name, requested_sched_ID, requester_sched_ID, sched_Date, shift, swap_request_ID, date_requested, status FROM swaprequest JOIN schedule ON schedule.schedule_ID = swaprequest.requester_sched_ID JOIN shift ON shift.shift_ID = schedule.shift_ID JOIN user ON  user.user_ID = swaprequest.requester_user_ID  WHERE swap_request_ID = '$getID'");        
     }
     else{
-        $getEmployeeRequest = mysqli_query($conn, "SELECT user.user_ID, first_name, last_name, requested_sched_ID, requester_sched_ID, sched_Date, shift, swap_request_ID, date_requested, status FROM swaprequest JOIN schedule ON schedule.schedule_ID = swaprequest.requester_sched_ID JOIN shift ON shift.shift_ID = schedule.shift_ID JOIN user ON  user.user_ID = schedule.user_ID WHERE user.department = '$team' AND swap_request_ID = '$getID'");
+        $getEmployeeRequest = mysqli_query($conn, "SELECT swaprequest.requester_user_ID, first_name, last_name, requested_sched_ID, requester_sched_ID, sched_Date, shift, swap_request_ID, date_requested, status FROM swaprequest JOIN schedule ON schedule.schedule_ID = swaprequest.requester_sched_ID JOIN shift ON shift.shift_ID = schedule.shift_ID JOIN user ON  user.user_ID = swaprequest.requester_user_ID WHERE user.department = '$team' AND swap_request_ID = '$getID'");
     }
     
     $resultNo = mysqli_num_rows($getEmployeeRequest);
@@ -115,10 +115,10 @@ if ($dept_check == "SuperAdmin"){
                         $date_requested = $row['date_requested'];
 
 
-                        echo "request ID: ".$requestID = $row['swap_request_ID'];
-                        echo "      requester sched ID: ".$requester_sched_ID = $row['requester_sched_ID'];
-                        echo "      requested sched ID: ".$requested_sched_ID = $row['requested_sched_ID'];
-                        echo "      requester user ID: ".$requester_user_ID = $row['user_ID'];
+                        $requestID = $row['swap_request_ID'];
+                        $requester_sched_ID = $row['requester_sched_ID'];
+                        $requested_sched_ID = $row['requested_sched_ID'];
+                        $requester_user_ID = $row['requester_user_ID'];
                         
 
                         $getUser = mysqli_query($conn, "SELECT user.user_ID, first_name, last_name, sched_Date, shift FROM schedule JOIN user on user.user_ID = schedule.user_ID JOIN shift on shift.shift_ID = schedule.shift_ID WHERE schedule_ID = '$requested_sched_ID'");
@@ -131,7 +131,7 @@ if ($dept_check == "SuperAdmin"){
 
 
                         
-                        echo "     requested user ID: ".$requested_user_ID = $row2['user_ID'];
+                        $requested_user_ID = $row2['user_ID'];
 
 
                         ?>

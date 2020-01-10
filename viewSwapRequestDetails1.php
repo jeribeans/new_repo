@@ -33,10 +33,10 @@ $END = date('Y-m-t',strtotime('this month'));
      
    <?php
     if ($dept_check == "SuperAdmin"){
-        $getEmployeeRequest = mysqli_query($conn, "SELECT user.user_ID, first_name, last_name, requested_sched_ID, sched_Date, shift, swap_request_ID, date_requested, status FROM swaprequest JOIN schedule ON schedule.schedule_ID = swaprequest.requester_sched_ID JOIN shift ON shift.shift_ID = schedule.shift_ID JOIN user ON  user.user_ID = schedule.user_ID");        
+        $getEmployeeRequest = mysqli_query($conn, "SELECT swaprequest.requester_user_ID, first_name, last_name, requested_sched_ID, sched_Date, shift, swap_request_ID, date_requested, status FROM swaprequest JOIN schedule ON schedule.schedule_ID = swaprequest.requester_sched_ID JOIN shift ON shift.shift_ID = schedule.shift_ID JOIN user ON  user.user_ID = swaprequest.requester_user_ID");        
     }
     else{
-        $getEmployeeRequest = mysqli_query($conn, "SELECT user_ID, first_name, last_name, requested_sched_ID, sched_Date, shift, swap_request_ID, date_requested, status FROM swaprequest JOIN schedule ON schedule.schedule_ID = swaprequest.requester_sched_ID JOIN shift ON shift.shift_ID = schedule.shift_ID JOIN user ON  user.user_ID = schedule.user_ID WHERE user.department = '$team'");    
+        $getEmployeeRequest = mysqli_query($conn, "SELECT swaprequest.requester_user_ID, first_name, last_name, requested_sched_ID, sched_Date, shift, swap_request_ID, date_requested, status FROM swaprequest JOIN schedule ON schedule.schedule_ID = swaprequest.requester_sched_ID JOIN shift ON shift.shift_ID = schedule.shift_ID JOIN user ON  user.user_ID = swaprequest.requester_user_ID WHERE user.department = '$team'");    
     }
     
     $resultNo = mysqli_num_rows($getEmployeeRequest);

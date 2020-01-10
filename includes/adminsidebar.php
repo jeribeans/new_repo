@@ -17,6 +17,12 @@
                     </a>
                 </li>
 
+                 <li>
+                    <a href="addShift.php">
+                        <span>Add Shift</span>
+                    </a>
+                </li>
+
                 <li>
                     <a href="setSched.php">
                         <span>Set Schedule</span>

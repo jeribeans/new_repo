@@ -47,7 +47,7 @@ while($resultNo > $itr){
         
 
         
-        $swapRequest = mysqli_query($conn, "INSERT INTO swaprequest (requester_sched_ID, requested_sched_ID, date_requested, status) VALUES('$requesterID', '$requestedID','$created_at', 'PENDING')");
+        $swapRequest = mysqli_query($conn, "INSERT INTO swaprequest (requester_sched_ID, requested_sched_ID, requester_user_ID, date_requested, status) VALUES('$requesterID', '$requestedID', '$check', '$created_at', 'PENDING')");
         if (!$swapRequest){
             ?> <script> alert ("Error while submitting swap request, please try again.")</script><?php
         }else{

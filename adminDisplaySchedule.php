@@ -40,20 +40,17 @@ if(isset($_POST['searchDate2'])){
      <table class="table table-hover table-striped table-condensed table-bordered" >
                              <thead>
                                  <tr>
-                                    <!-- <th>Shift</th> -->
+                                    
                                     <?php 
-                                    $START01 = date('Y-m-01');
-                                    $END01 = date('t',strtotime($START01));
-                                    // for ($i = 1; $i <= $END01; $i++){
-                                    //     echo "<th>". $dates[] = date('M') . " " . str_pad($i, 2, '0', STR_PAD_LEFT). " ";"</th>";
-                                    // }
+                                        $START01 = date('Y-m-01');
+                                        $END01 = date('t',strtotime($START01));
                                     ?>
-                                     <!-- <th>Employee ID</th>
-                                     <th>Name</th>
-                                     <th>Department</th>                                                
-                                     <th>Schedule Date</th>
-                                     <th>Shift</th> -->
+                                    
                                  </tr>
+
+
+                                 <!-- CHECK/UPDATE CODES, CHECK TABLE INSTEAD OF MANUALLY VIEWING SHIFTS (VIEW SHIFT TABLE) -->
+
 
                                  <div style="overflow-x:auto;">
                                     <tbody class="table table-striped">
@@ -69,7 +66,6 @@ if(isset($_POST['searchDate2'])){
                                                 }
                                            ?>
                                         </tr>
-
 
                                         <tr>
                                             <td>Morning</td>
