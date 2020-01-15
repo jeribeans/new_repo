@@ -55,49 +55,72 @@ if(isset($_POST['searchDate2'])){
                                  <div style="overflow-x:auto;">
                                     <tbody class="table table-striped">
                                         
+                                        <?php 
+
+                                        if($dept_check == "SuperAdmin"){?>
+
+                                            <tr>
+                                            <td><b>Shift</b></td>
+                                            <?php
+                                               $viewDates =  mysqli_query($conn, "SELECT sched_Date from schedule JOIN shift ON schedule.shift_ID = shift.shift_ID WHERE (schedule.sched_Date BETWEEN '$START1' AND '$END1') GROUP BY sched_Date");
+                                                
+                                                while($row = mysqli_fetch_assoc($viewDates)){
+                                                    echo "<td><b>".date('M d - D', strtotime($row['sched_Date']))."</b></td>";
+
+
+                                                }
+
+                                                $viewshift =  mysqli_query($conn, "SELECT shift, shift_ID from shift");
+                                                while($shift = mysqli_fetch_assoc($viewshift)){
+                                                    echo "<tr><td><b>".$shift['shift']."</b></td>";
+                                                    $shiftID = $shift['shift_ID'];
+                                                    $viewSched =  mysqli_query($conn, "SELECT first_name, last_name, schedule.department from schedule JOIN shift ON schedule.shift_ID = shift.shift_ID JOIN user ON schedule.user_ID = user.user_ID WHERE schedule.shift_ID = '$shiftID' AND (schedule.sched_Date BETWEEN '$START1' AND '$END1') ORDER BY schedule.sched_Date");
+
+                                                    while($test = mysqli_fetch_assoc($viewSched)){
+                                                        echo "<td>".$test['first_name']." ".$test['last_name']."</td>";
+                                                    }
+                                                }
+
+                                                
+
+                                                echo "</tr>";
+                                           ?>
+                                        </tr>
+                                        
+
+                                        <?php } else {
+
+
+                                        ?>
+
                                         <tr>
                                             <td><b>Shift</b></td>
                                             <?php
-                                                $viewDates =  mysqli_query($conn, "SELECT sched_Date from schedule JOIN shift ON schedule.shift_ID = shift.shift_ID JOIN user ON schedule.user_ID = user.user_ID WHERE schedule.shift_ID = '1' AND (schedule.sched_Date BETWEEN '$START1' AND '$END1')  ORDER BY schedule.sched_Date");
+                                                $viewDates =  mysqli_query($conn, "SELECT sched_Date from schedule JOIN shift ON schedule.shift_ID = shift.shift_ID WHERE (schedule.sched_Date BETWEEN '$START' AND '$END') GROUP BY sched_Date");
                                                 
-                                            
                                                 while($row = mysqli_fetch_assoc($viewDates)){
                                                     echo "<td><b>".date('M d - D', strtotime($row['sched_Date']))."</b></td>";
-                                                }
-                                           ?>
-                                        </tr>
 
-                                        <tr>
-                                            <td>Morning</td>
-                                            <?php
-                                                $viewMorning =  mysqli_query($conn, "SELECT first_name, last_name from schedule JOIN shift ON schedule.shift_ID = shift.shift_ID JOIN user ON schedule.user_ID = user.user_ID WHERE schedule.shift_ID = '1' AND (schedule.sched_Date BETWEEN '$START1' AND '$END1')  ORDER BY schedule.sched_Date");
-                                                
-                                            
-                                                while($row = mysqli_fetch_assoc($viewMorning)){
-                                                    ?><td><a href="swapSchedule.php?IDval=1"target='top'> </a></td>"<?php
+
                                                 }
-                                           ?>
-                                        </tr>
-                                        <tr>
-                                            <td>Mid-Day</td>
-                                            <?php
-                                                $viewMid =  mysqli_query($conn, "SELECT first_name, last_name from schedule JOIN shift ON schedule.shift_ID = shift.shift_ID JOIN user ON schedule.user_ID = user.user_ID WHERE schedule.shift_ID = '2' AND (schedule.sched_Date BETWEEN '$START1' AND '$END1')  ORDER BY schedule.sched_Date");
-                                                while($row = mysqli_fetch_assoc($viewMid)){
-                                                    echo "<td><a>".$row['first_name']." ".$row['last_name']."</a></td>";
-                                                }   
-                                           ?>
-                                        </tr>
-                                        <tr>
-                                            <td>GY</td>
-                                            <?php
-                                                $viewGY =  mysqli_query($conn, "SELECT first_name, last_name from schedule JOIN shift ON schedule.shift_ID = shift.shift_ID JOIN user ON schedule.user_ID = user.user_ID WHERE schedule.shift_ID = '3' AND (schedule.sched_Date BETWEEN '$START1' AND '$END1')  ORDER BY schedule.sched_Date");
-                                                
-                                                while($row = mysqli_fetch_assoc($viewGY)){
-                                                    echo "<td><a>".$row['first_name']." ".$row['last_name']."</a></td>";
+
+                                                $viewshift =  mysqli_query($conn, "SELECT shift, shift_ID from shift");
+                                                while($shift = mysqli_fetch_assoc($viewshift)){
+                                                    echo "<tr><td><b>".$shift['shift']."</b></td>";
+                                                    $shiftID = $shift['shift_ID'];
+                                                    $viewSched =  mysqli_query($conn, "SELECT first_name, last_name, schedule.department from schedule JOIN shift ON schedule.shift_ID = shift.shift_ID JOIN user ON schedule.user_ID = user.user_ID WHERE schedule.shift_ID = '$shiftID' AND (schedule.sched_Date BETWEEN '$START' AND '$END') AND schedule.department = '$team'  ORDER BY schedule.sched_Date");
+
+                                                    while($test = mysqli_fetch_assoc($viewSched)){
+                                                        echo "<td>".$test['first_name']." ".$test['last_name']."</td>";
+                                                    }
                                                 }
+
+                                                
+
+                                                echo "</tr>";
                                            ?>
                                         </tr>
-                        
+                                <?php } ?>
                              </thead>  
 
 <?php
@@ -115,81 +138,84 @@ if(isset($_POST['searchDate2'])){
      <table class="table table-hover table-striped table-condensed table-bordered" >
                              <thead>
                                  <tr>
-                                 <!--    <th>Shift</th> -->
+                                 
                                     <?php 
                                     $START01 = date('Y-m-01');
                                     $END01 = date('t',strtotime($START01));
-                                    // for ($i = 1; $i <= $END01; $i++){
-                                    //     echo "<th>". $dates[] = date('M') . " " . str_pad($i, 2, '0', STR_PAD_LEFT). " ";"</th>";
-                                    // }
+                                    
                                     ?>
-                                     <!-- <th>Employee ID</th>
-                                     <th>Name</th>
-                                     <th>Department</th>                                                
-                                     <th>Schedule Date</th>
-                                     <th>Shift</th> -->
+                                     
                                  </tr>
 
                                  <div style="overflow-x:auto;">
                                     <tbody class="table table-striped">
                                         
+                                        <?php 
+
+                                        if($dept_check == "SuperAdmin"){?>
+
+                                            <tr>
+                                            <td><b>Shift</b></td>
+                                            <?php
+                                                $viewDates =  mysqli_query($conn, "SELECT sched_Date from schedule JOIN shift ON schedule.shift_ID = shift.shift_ID JOIN user ON schedule.user_ID = user.user_ID WHERE (schedule.sched_Date BETWEEN '$START' AND '$END') GROUP BY sched_Date");
+                                                
+                                                while($row = mysqli_fetch_assoc($viewDates)){
+                                                    echo "<td><b>".date('M d - D', strtotime($row['sched_Date']))."</b></td>";
+
+
+                                                }
+
+                                                $viewshift =  mysqli_query($conn, "SELECT shift, shift_ID from shift");
+                                                while($shift = mysqli_fetch_assoc($viewshift)){
+                                                    echo "<tr><td><b>".$shift['shift']."</b></td>";
+                                                    $shiftID = $shift['shift_ID'];
+                                                    $viewSched =  mysqli_query($conn, "SELECT first_name, last_name, schedule.department from schedule JOIN shift ON schedule.shift_ID = shift.shift_ID JOIN user ON schedule.user_ID = user.user_ID WHERE schedule.shift_ID = '$shiftID' AND (schedule.sched_Date BETWEEN '$START' AND '$END') ORDER BY schedule.sched_Date");
+
+                                                    while($test = mysqli_fetch_assoc($viewSched)){
+                                                        echo "<td>".$test['first_name']." ".$test['last_name']."</td>";
+                                                    }
+                                                }
+
+                                                
+
+                                                echo "</tr>";
+                                           ?>
+                                        </tr>
+                                        
+
+                                        <?php } else {
+
+
+                                        ?>
+
                                         <tr>
                                             <td><b>Shift</b></td>
                                             <?php
-                                                $viewDates =  mysqli_query($conn, "SELECT sched_Date from schedule JOIN shift ON schedule.shift_ID = shift.shift_ID JOIN user ON schedule.user_ID = user.user_ID WHERE schedule.shift_ID = '1' AND (schedule.sched_Date BETWEEN '$START' AND '$END')  ORDER BY schedule.sched_Date");
+                                                $viewDates =  mysqli_query($conn, "SELECT sched_Date from schedule JOIN shift ON schedule.shift_ID = shift.shift_ID WHERE (schedule.sched_Date BETWEEN '$START' AND '$END') GROUP BY sched_Date");
                                                 
-                                            
                                                 while($row = mysqli_fetch_assoc($viewDates)){
                                                     echo "<td><b>".date('M d - D', strtotime($row['sched_Date']))."</b></td>";
+
+
                                                 }
-                                           ?>
-                                        </tr>
 
-                                        <tr>
-                                            <td>Morning</td>
-                                            <?php
-                                                $viewMorning =  mysqli_query($conn, "SELECT first_name, last_name, schedule_ID from schedule JOIN shift ON schedule.shift_ID = shift.shift_ID JOIN user ON schedule.user_ID = user.user_ID WHERE schedule.shift_ID = '1' AND (schedule.sched_Date BETWEEN '$START' AND '$END')  ORDER BY schedule.sched_Date");
-                                                
-                                            
-                                                while($row = mysqli_fetch_assoc($viewMorning)){
-                                                    
-                                                    ?> 
-                                                    
-                                                    <td><a href="swapSchedule.php?IDval=<?php echo $row['schedule_ID']?>" target="top"><?php echo $row['first_name']." ".$row['last_name']?> </td>
+                                                $viewshift =  mysqli_query($conn, "SELECT shift, shift_ID from shift");
+                                                while($shift = mysqli_fetch_assoc($viewshift)){
+                                                    echo "<tr><td><b>".$shift['shift']."</b></td>";
+                                                    $shiftID = $shift['shift_ID'];
+                                                    $viewSched =  mysqli_query($conn, "SELECT first_name, last_name, schedule.department from schedule JOIN shift ON schedule.shift_ID = shift.shift_ID JOIN user ON schedule.user_ID = user.user_ID WHERE schedule.shift_ID = '$shiftID' AND (schedule.sched_Date BETWEEN '$START' AND '$END') AND schedule.department = '$team'  ORDER BY schedule.sched_Date");
 
-                                                    <?php
+                                                    while($test = mysqli_fetch_assoc($viewSched)){
+                                                        echo "<td>".$test['first_name']." ".$test['last_name']."</td>";
+                                                    }
                                                 }
-                                           ?>
-                                        </tr>
-                                        <tr>
-                                            <td>Mid-Day</td>
-                                            <?php
-                                                $viewMid =  mysqli_query($conn, "SELECT first_name, last_name, schedule_ID from schedule JOIN shift ON schedule.shift_ID = shift.shift_ID JOIN user ON schedule.user_ID = user.user_ID WHERE schedule.shift_ID = '2' AND (schedule.sched_Date BETWEEN '$START' AND '$END')  ORDER BY schedule.sched_Date");
-                                                while($row = mysqli_fetch_assoc($viewMid)){
-                                                    ?> 
-                                                    
-                                                    <td><a href="swapSchedule.php?IDval=<?php echo $row['schedule_ID']?>" target="top"><?php echo $row['first_name']." ".$row['last_name']?> </td>
 
-                                                    <?php
                                                 
-                                                }   
-                                           ?>
-                                        </tr>
-                                        <tr>
-                                            <td>GY</td>
-                                            <?php
-                                                $viewGY =  mysqli_query($conn, "SELECT first_name, last_name, schedule_ID from schedule JOIN shift ON schedule.shift_ID = shift.shift_ID JOIN user ON schedule.user_ID = user.user_ID WHERE schedule.shift_ID = '3' AND (schedule.sched_Date BETWEEN '$START' AND '$END')  ORDER BY schedule.sched_Date");
-                                                
-                                                while($row = mysqli_fetch_assoc($viewGY)){
-                                                ?> 
-                                                    
-                                                    <td><a href="swapSchedule.php?IDval=<?php echo $row['schedule_ID']?>" target="top"><?php echo $row['first_name']." ".$row['last_name']?> </td>
 
-                                                    <?php
-                                                }
+                                                echo "</tr>";
                                            ?>
                                         </tr>
-                        
+                                <?php } ?>
                              </thead>  
 
             <?php 

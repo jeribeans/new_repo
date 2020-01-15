@@ -18,15 +18,16 @@ include('includes/navbar.php');
 include('includes/adminsidebar.php');    
 
 
+
 if($dept_check == "SuperAdmin"){
     $getEmployee = mysqli_query($conn, "SELECT * FROM user");
     $getTime = mysqli_query($conn, "SELECT * FROM timeCheck");
-    $getShift = mysqli_query($conn, "SELECT * FROM shift");
+    
 }
 else{
     $getEmployee = mysqli_query($conn, "SELECT * FROM user WHERE department = '$team'");
     $getTime = mysqli_query($conn, "SELECT * FROM timeCheck");
-    $getShift = mysqli_query($conn, "SELECT * FROM shift");   
+    
 }
 
                                 
@@ -47,6 +48,7 @@ while($resultNo > $itr){
         $empID = "empID" . $itr;
         $usrID = "usrID" . $itr;
         $dept = "dept" . $itr;
+        $shiftID = "shiftID" . $itr;
 
         $edate = $_POST[$edate];
         $sdate = $_POST[$sdate];
@@ -56,15 +58,9 @@ while($resultNo > $itr){
         $name = $_POST[$name];
         $dept = $_POST[$dept];
 
-        if($shift == "Morning Shift"){
-            $shiftID = 1;
-        } 
-        else if ($shift == "Mid-Day Shift"){
-            $shiftID = 2;
-        }
-        else {
-            $shiftID = 3;
-        }
+        $getShiftID = mysqli_query($conn, "SELECT shift_ID FROM shift where shift = '$shift'");
+        $ID = mysqli_fetch_assoc($getShiftID);
+        $shiftID = $ID['shift_ID'];
 
         $start_date = $sdate;
         $end_date = $edate;
@@ -88,7 +84,7 @@ while($resultNo > $itr){
 
                 //inserts schedule date if not existing
                 if(!$resultNo2){
-                    $sql = "INSERT INTO schedule (sched_date, created_at, user_ID, shift_ID) VALUES('$start_date', '$created_at','$usrID', '$shiftID')";
+                    $sql = "INSERT INTO schedule (sched_date, created_at, user_ID, shift_ID, department) VALUES('$start_date', '$created_at','$usrID', '$shiftID', '$dept')";
                     $query = mysqli_query($conn,$sql);
                 }
                 
@@ -159,7 +155,7 @@ while($resultNo > $itr){
 
                                     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" id="addUserForm" method="post"><?php
                                     $row2 = mysqli_fetch_assoc($getTime);
-                                    $row3 = mysqli_fetch_assoc($getShift);
+                                    
                                        
                                     $user = $row['user_ID'];      
                                     $employeeID = $row['employee_id'];
@@ -189,11 +185,14 @@ while($resultNo > $itr){
                                                 
                                             <td>
                                                 <select class="form-control" name="shift<?=$counter?>">
-                                                    <option value="" disabled selected>Select Shift</option>
-                                                   
-                                                    <option>Morning Shift</option>
-                                                    <option>Mid-Day Shift</option>
-                                                    <option>GY Shift</option>
+                                                    <option disabled selected>Select Shift</option>
+                                                        <?php 
+                                                            $getShift = mysqli_query($conn, "SELECT * FROM shift");
+                                                            while($shift = mysqli_fetch_assoc($getShift)){
+                                                                echo "<option>".$shift['shift']."</option>";
+                                                            }
+
+                                                        ?>
                                                 </select>                                                
                                             </td>
 
