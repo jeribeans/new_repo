@@ -30,7 +30,7 @@ require_once('includes/header.php'); ?>
 
    		// Check if user is existing/correct credetials given
     	if(!$row){
-    			?> <script> alert ("Incorrect Username or Password!")</script><?php
+    			?> <script> alert ("Incorrect Username or Password! Please contact System Administrator")</script><?php
     	}
 
     	// Check if user is logged in
@@ -40,53 +40,56 @@ require_once('includes/header.php'); ?>
 
     	// check returned user information
     	if(!$resultNo){
-      
-      		if ($row['department'] == 'Admin') {
+        // 
+      		if (in_array($row['department'], array('SuperAdmin', 'AdminNOC', 'AdminFS', 'AdminCS'))) {
       			$date = date("Y-n-d");
       			$time = date("H:i:s");
         
-         		$userID = $row['user_ID'];
-  	   		 	$username = $row['employee_id'];
-			    	$firstname = $row['first_name'];
-			     	$lastname = $row['last_name'];
-			  	  $department = $row['department'];
+         		echo $userID = $row['user_ID'];
+  	   		 	echo $username = $row['employee_id'];
+			    	echo $firstname = $row['first_name'];
+			     	echo $lastname = $row['last_name'];
+			  	  echo $department = $row['department'];
 
 
-        		$status = "Logged in";
+        		echo $status = "Logged in";
+            echo $sched_status = "On-time";
 
         		
 
-        		$sql3 = "INSERT INTO timeCheck (login_date, login_time, status, user_ID) VALUES('$date', '$time','$status', '$userID')";
+        		$sql3 = "INSERT INTO timecheck (login_date, login_time, status, user_ID, sched_status) VALUES('$date', '$time','$status', '$userID', '$sched_status')";
         		$query3 = mysqli_query($conn,$sql3);
 
         		?> <script> alert ("Welcome, <?=$firstname?> <?=$lastname?>! You have successfully Logged in."+"\n"+"Log in Date: <?=$date?>"+"\n"+"Log in time: <?=$time?>")</script><?php
         	}
-    	} 
-		
-		// Same description as above (different department)
-    	if(!$resultNo){
-        	if ($row['department'] == 'NOC') {
-        		$date = date("Y-n-d");
-    			  $time = date("H:i:s");
 
-          	$userID = $row['user_ID'];
-			 	    $username = $row['employee_id'];
-			  	  $firstname = $row['first_name'];
-			  	  $lastname = $row['last_name'];
-			  	  $department = $row['department'];
-			  	
-          	
+          // Same description as above (different department)
+          elseif (in_array($row['department'], array('NOC', 'FS', 'CS'))) {
+            $date = date("Y-n-d");
+            $time = date("H:i:s");
+
+            $userID = $row['user_ID'];
+            $username = $row['employee_id'];
+            $firstname = $row['first_name'];
+            $lastname = $row['last_name'];
+            $department = $row['department'];
+          
+            
             $status = "Logged in";
 
-        		$sql3 = "INSERT INTO timeCheck (login_date, login_time, status, user_ID) VALUES('$date', '$time','$status', '$userID')";
-        			$query3 = mysqli_query($conn,$sql3);
+            $sql3 = "INSERT INTO timeCheck (login_date, login_time, status, user_ID) VALUES('$date', '$time','$status', '$userID')";
+              $query3 = mysqli_query($conn,$sql3);
 
-        		?> <script> alert ("Welcome, <?=$firstname?> <?=$lastname?>! You have successfully Logged in."+"\n"+"Log in Date: <?=$date?>"+"\n"+"Log in time: <?=$time?>")</script><?php
-        	}
-      	}
-      	
-    } 
-	
+            ?> <script> alert ("Welcome, <?=$firstname?> <?=$lastname?>! You have successfully Logged in."+"\n"+"Log in Date: <?=$date?>"+"\n"+"Log in time: <?=$time?>")</script><?php
+          }
+          // else{
+          //    
+          // }
+        }
+    	} 
+		
+		
+    	
 
     // User log out
     if (isset($_POST['logout'])){
