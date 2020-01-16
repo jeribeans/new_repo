@@ -156,7 +156,7 @@ if (isset($_POST['submit'])){
           <label for="sel1">Temporary Password:</label>
           <div class="form-group input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-            <input class="form-control" type="password" name='password1' placeholder="Password">          
+            <input class="form-control" type="password" name='password1' placeholder="Password (Optional)">          
           </div>
 
 

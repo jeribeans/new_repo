@@ -61,12 +61,47 @@ include('includes/adminsidebar.php');
     <iframe width=800px height=450px src=<?php echo "viewPendingSwapRequest.php"?> frameborder="no" scrolling="yes" name="my_iframe3" id="my_iframe3"></iframe>
 
 
-    <form action="adminDisplaySchedule.php" method="post" target="my_iframe2">
-        <font size="5"><b>Schedule:</b></font>
-        <input type="month" name='dateSearch2' value="<?php echo date('Y-m');?>" ">
-        <input type="submit" class="btn btn-def" name='searchDate2' value="Search" />
-    </form>
-    <iframe width=1200px height=350px src=<?php echo "adminDisplaySchedule.php"?> frameborder="no" scrolling="yes" name="my_iframe2" id="my_iframe2"></iframe>
+
+<?php 
+
+if ($dept_check != "SuperAdmin"){?>
+
+<form action="adminDisplaySchedule.php" method="post" target="my_iframe2">
+    <font size="5"><b>Schedule:</b></font>
+    <input type="month" name='dateSearch2' value="<?php echo date('Y-m');?>" ">
+    <input type="submit" class="btn btn-def" name='searchDate2' value="Search" />
+</form>
+<iframe width=1200px height=350px src=<?php echo "adminDisplaySchedule.php"?> frameborder="no" scrolling="yes" name="my_iframe2" id="my_iframe2"></iframe>
+
+<?php 
+} else{ ?>
+
+<form action="superAdminDisplaySchedule.php" method="post" target="my_iframe4">
+    
+    <font size="5"><b>Department:</b></font>
+    <select name="department" required="true">
+        <option value="" disabled selected>Select Department</option>
+        <option>Network Operations Center</option>
+        <option>Field Support</option>
+        <option>Customer Support</option>
+    </select>
+
+    <font size="5"><b> Schedule:</b></font>
+    <input type="month" name='dateSearch3' value="<?php echo date('Y-m');?>" ">
+    <input type="submit" class="btn btn-def" name='searchDate3' value="Search" />
+     
+</form>
+<iframe width=1200px height=350px src=<?php echo "superAdminDisplaySchedule.php"?> frameborder="no" scrolling="yes" name="my_iframe4" id="my_iframe4"></iframe>
+
+
+
+
+
+<?php 
+}
+?>
+
+    
 
 
 

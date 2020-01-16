@@ -135,7 +135,7 @@ while($resultNo > $itr){
                         <table class="table table-hover table-striped table-condensed table-bordered" >
                             <thead>
                                 <tr>
-                                    <th>ID No</th>
+                                    <th>ID</th>
                                     <th>Name</th>
                                     <th>Department</th>                                                
                                     <th>Shift</th>
