@@ -82,9 +82,6 @@ require_once('includes/header.php'); ?>
 
             ?> <script> alert ("Welcome, <?=$firstname?> <?=$lastname?>! You have successfully Logged in."+"\n"+"Log in Date: <?=$date?>"+"\n"+"Log in time: <?=$time?>")</script><?php
           }
-          // else{
-          //    
-          // }
         }
     	} 
 		
