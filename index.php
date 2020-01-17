@@ -40,53 +40,98 @@ require_once('includes/header.php'); ?>
 
     	// check returned user information
     	if(!$resultNo){
-        // 
-      		if (in_array($row['department'], array('SuperAdmin', 'AdminNOC', 'AdminFS', 'AdminCS'))) {
-      			$date = date("Y-n-d");
-      			$time = date("H:i:s");
         
-         		echo $userID = $row['user_ID'];
-  	   		 	echo $username = $row['employee_id'];
-			    	echo $firstname = $row['first_name'];
-			     	echo $lastname = $row['last_name'];
-			  	  echo $department = $row['department'];
+      		if (in_array($row['department'], array('SuperAdmin', 'AdminNOC', 'AdminFS', 'AdminCS', 'NOC', 'FS', 'CS'))) {
+      			$date = date("Y-n-d");
+            
+        
+         		$userID = $row['user_ID'];
+  	   		 	$username = $row['employee_id'];
+			    	$firstname = $row['first_name'];
+			     	$lastname = $row['last_name'];
+			  	  $department = $row['department'];
 
 
-        		echo $status = "Logged in";
-            echo $sched_status = "On-time";
+        		$status = "Logged in";
+            $sched_status = "On-time";
 
         		
+            //get schedule
 
-        		$sql3 = "INSERT INTO timecheck (login_date, login_time, status, user_ID, sched_status) VALUES('$date', '$time','$status', '$userID', '$sched_status')";
-        		$query3 = mysqli_query($conn,$sql3);
-
-        		?> <script> alert ("Welcome, <?=$firstname?> <?=$lastname?>! You have successfully Logged in."+"\n"+"Log in Date: <?=$date?>"+"\n"+"Log in time: <?=$time?>")</script><?php
-        	}
-
-          // Same description as above (different department)
-          elseif (in_array($row['department'], array('NOC', 'FS', 'CS'))) {
-            $date = date("Y-n-d");
-            $time = date("H:i:s");
-
-            $userID = $row['user_ID'];
-            $username = $row['employee_id'];
-            $firstname = $row['first_name'];
-            $lastname = $row['last_name'];
-            $department = $row['department'];
-          
+            $checkSchedule = mysqli_query($conn, "SELECT sched_Date, shift_ID from schedule WHERE (schedule.sched_Date = '$date')  AND  (schedule.user_ID = '$userID')");
             
-            $status = "Logged in";
 
-            $sql3 = "INSERT INTO timeCheck (login_date, login_time, status, user_ID) VALUES('$date', '$time','$status', '$userID')";
+            if (mysqli_num_rows($checkSchedule) > 0){
+
+              while($row = mysqli_fetch_assoc($checkSchedule)){
+                $shiftID = $row['shift_ID'];
+                $checkShift = mysqli_query($conn, "SELECT * from shift WHERE shift_ID = '$shiftID'");
+
+                if (mysqli_num_rows($checkShift) > 0){
+                  
+                  while ($row2 = mysqli_fetch_assoc($checkShift)){
+                     $time = date("H:i:s");
+                      
+                      $check1 = date("H:i", strtotime($time));
+                      $check2 = date("H:i", strtotime($row2['shift_time_in']));
+
+
+                     //On-time time in
+                    if ( $check1 == $check2){
+
+                      
+                      $sql3 = "INSERT INTO timecheck (login_date, login_time, status, user_ID, sched_status) VALUES('$date', '$time','$status', '$userID', '$sched_status')";
+                      $query3 = mysqli_query($conn,$sql3);
+
+                      ?> <script> alert ("Welcome, <?=$firstname?> <?=$lastname?>! You have successfully Logged in."+"\n"+"Log in Date: <?=$date?>"+"\n"+"Log in time: <?=$time?>")</script><?php
+                    }
+
+                    //Late time-in
+                    elseif($time > $row2['shift_time_in']){
+                      $sched_status = "Late";
+
+                     
+                      $sql3 = "INSERT INTO timecheck (login_date, login_time, status, user_ID, sched_status) VALUES('$date', '$time','$status', '$userID', '$sched_status')";
+                      $query3 = mysqli_query($conn,$sql3);
+
+                      ?> <script> alert ("Welcome, <?=$firstname?> <?=$lastname?>! You have successfully Logged in."+"\n"+"Log in Date: <?=$date?>"+"\n"+"Log in time: <?=$time?>")</script><?php
+
+                    }
+
+                    //Early time-in
+                    elseif($time < $row2['shift_time_in']){
+                      $sched_status = "Early";
+
+                      //Insert into conditions (if scheduled and if on-time/late)
+                      $sql3 = "INSERT INTO timecheck (login_date, login_time, status, user_ID, sched_status) VALUES('$date', '$time','$status', '$userID', '$sched_status')";
+                      $query3 = mysqli_query($conn,$sql3);
+
+                      ?> <script> alert ("Welcome, <?=$firstname?> <?=$lastname?>! You have successfully Logged in."+"\n"+"Log in Date: <?=$date?>"+"\n"+"Log in time: <?=$time?>")</script><?php
+
+                    }
+                      
+                  }
+
+                } 
+
+              }              
+
+            }
+            
+            else {
+            $time = date("H:i:s");
+              $sched_status = "Unscheduled Log-in";
+              $sql3 = "INSERT INTO timecheck (login_date, login_time, status, user_ID, sched_status) VALUES('$date', '$time','$status', '$userID', '$sched_status')";
               $query3 = mysqli_query($conn,$sql3);
 
-            ?> <script> alert ("Welcome, <?=$firstname?> <?=$lastname?>! You have successfully Logged in."+"\n"+"Log in Date: <?=$date?>"+"\n"+"Log in time: <?=$time?>")</script><?php
-          }
+              ?> <script> alert ("Welcome, <?=$firstname?> <?=$lastname?>! You have successfully Logged in."+"\n"+"Log in Date: <?=$date?>"+"\n"+"Log in time: <?=$time?>")</script><?php
+
+            }
+        	} 
         }
-    	} 
-		
-		
-    	
+      }
+
+
 
     // User log out
     if (isset($_POST['logout'])){
@@ -119,6 +164,11 @@ require_once('includes/header.php'); ?>
       	$sql5 = "SELECT * FROM timeCheck WHERE status = 'Logged in' AND user_ID = '".$row4['user_ID']."'";
       	$query5 = mysqli_query($conn,$sql5);
       	$row5 = mysqli_fetch_array($query5,MYSQLI_ASSOC);
+
+          // Not logged-in
+          if(!$row5){
+            ?> <script> alert ("You must be Logged in to do this action!")</script><?php
+          } 
       
 	    $resultNo2 = mysqli_num_rows($query5);
 
@@ -140,16 +190,7 @@ require_once('includes/header.php'); ?>
 
       			$sql6 = "UPDATE timecheck SET logout_date ='".$date."', logout_time ='".$time."', status ='Logged out' WHERE status = 'Logged in' AND user_ID = '".$row5['user_ID']."' ";
         		$query6 = mysqli_query($conn,$sql6);
-				// session_destroy();    
-    //     		exit();
-      		
-
-        	// Not logged-in
-        	if(!$row5){
-      		  ?> <script> alert ("You must be Logged in to do this action!")</script><?php
-      		
-      		} 
-
+		
       }
     }
   

@@ -111,11 +111,11 @@ require_once('includes/header.php'); ?>
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" id="loginForm" method="post">
           <div class="form-group input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-            <input class="form-control" type="text" name='username' placeholder="username" maxlength="30" value="<?php if(isset($_POST['username'])) echo $_POST['username']; ?>">          
+            <input class="form-control" type="text" name='username' placeholder="Employee ID" maxlength="30" value="<?php if(isset($_POST['username'])) echo $_POST['username']; ?>">          
           </div>
           <div class="form-group input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-            <input class="form-control" type="password" name='password' placeholder="password"/>     
+            <input class="form-control" type="password" name='password' placeholder="Password"/>     
           </div>
           <div class="form-group">
             <input type="submit" name="submit" class="btn btn-def btn-block" value="Login" />
