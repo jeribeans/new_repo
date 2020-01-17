@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 15, 2020 at 09:55 AM
+-- Generation Time: Jan 17, 2020 at 11:16 AM
 -- Server version: 5.7.23
 -- PHP Version: 7.2.10
 
@@ -71,7 +71,7 @@ CREATE TABLE IF NOT EXISTS `schedule` (
   PRIMARY KEY (`schedule_ID`),
   KEY `user_ID` (`user_ID`,`shift_ID`),
   KEY `shift_ID` (`shift_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `schedule`
@@ -88,11 +88,11 @@ INSERT INTO `schedule` (`schedule_ID`, `sched_Date`, `created_at`, `user_ID`, `s
 (8, '2020-01-03', '2020-01-15 14:33:33', 5, 1, 'NOC'),
 (9, '2020-01-04', '2020-01-15 14:33:33', 5, 1, 'NOC'),
 (10, '2020-01-05', '2020-01-15 14:33:33', 5, 1, 'NOC'),
-(11, '2020-01-01', '2020-01-15 16:05:39', 10, 4, 'NOC'),
-(12, '2020-01-02', '2020-01-15 16:05:39', 10, 4, 'NOC'),
-(13, '2020-01-03', '2020-01-15 16:05:39', 10, 4, 'NOC'),
-(14, '2020-01-04', '2020-01-15 16:05:39', 10, 4, 'NOC'),
-(15, '2020-01-05', '2020-01-15 16:05:39', 10, 4, 'NOC'),
+(11, '2020-01-01', '2020-01-15 18:36:14', 10, 3, 'NOC'),
+(12, '2020-01-02', '2020-01-15 18:36:14', 10, 3, 'NOC'),
+(13, '2020-01-03', '2020-01-15 18:36:14', 10, 3, 'NOC'),
+(14, '2020-01-04', '2020-01-15 18:36:14', 10, 3, 'NOC'),
+(15, '2020-01-05', '2020-01-15 18:36:14', 10, 3, 'NOC'),
 (16, '2020-01-01', '2020-01-15 17:01:51', 6, 1, 'FS'),
 (17, '2020-01-02', '2020-01-15 17:01:51', 6, 1, 'FS'),
 (18, '2020-01-03', '2020-01-15 17:01:51', 6, 1, 'FS'),
@@ -107,7 +107,12 @@ INSERT INTO `schedule` (`schedule_ID`, `sched_Date`, `created_at`, `user_ID`, `s
 (27, '2020-01-02', '2020-01-15 17:02:22', 12, 3, 'FS'),
 (28, '2020-01-03', '2020-01-15 17:02:22', 12, 3, 'FS'),
 (29, '2020-01-04', '2020-01-15 17:02:22', 12, 3, 'FS'),
-(30, '2020-01-05', '2020-01-15 17:02:22', 12, 3, 'FS');
+(30, '2020-01-05', '2020-01-15 17:02:22', 12, 3, 'FS'),
+(31, '2020-01-17', '2020-01-17 15:41:34', 1, 3, 'SuperAdmin'),
+(32, '2020-01-17', '2020-01-17 16:11:46', 11, 1, 'FS'),
+(33, '2020-01-17', '2020-01-17 16:11:59', 12, 2, 'FS'),
+(34, '2020-01-17', '2020-01-17 16:17:26', 2, 1, 'AdminNOC'),
+(35, '2020-01-17', '2020-01-17 16:17:40', 3, 2, 'AdminCS');
 
 -- --------------------------------------------------------
 
@@ -130,7 +135,7 @@ CREATE TABLE IF NOT EXISTS `shift` (
 
 INSERT INTO `shift` (`shift_ID`, `shift`, `shift_time_in`, `shift_time_out`) VALUES
 (1, 'Morning Shift', '06:00:00', '15:00:00'),
-(2, 'Mid-day Shift', '12:00:00', '21:00:00'),
+(2, 'Mid-Day Shift', '12:00:00', '21:00:00'),
 (3, 'GY Shift', '21:00:00', '06:00:00'),
 (4, 'Regular Shift', '08:00:00', '17:00:00');
 
@@ -153,7 +158,7 @@ CREATE TABLE IF NOT EXISTS `swaprequest` (
   KEY `requested_sched_ID` (`requested_sched_ID`),
   KEY `requester_sched_ID` (`requester_sched_ID`),
   KEY `requester_user_ID` (`requester_user_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `swaprequest`
@@ -163,7 +168,8 @@ INSERT INTO `swaprequest` (`swap_request_ID`, `requester_sched_ID`, `requested_s
 (1, 11, 26, 4, '2020-01-10', '2020-01-10', 'APPROVED'),
 (2, 10, 25, 4, '2020-01-10', '2020-01-10', 'DECLINED'),
 (3, 10, 25, 4, '2020-01-10', '2020-01-10', 'DECLINED'),
-(4, 10, 25, 4, '2020-01-10', NULL, 'PENDING');
+(4, 10, 25, 4, '2020-01-10', NULL, 'PENDING'),
+(5, 1, 6, 4, '2020-01-17', NULL, 'PENDING');
 
 -- --------------------------------------------------------
 
@@ -184,7 +190,7 @@ CREATE TABLE IF NOT EXISTS `timecheck` (
   PRIMARY KEY (`check_ID`),
   KEY `user_ID` (`user_ID`),
   KEY `user_ID_2` (`user_ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `timecheck`
@@ -202,8 +208,28 @@ INSERT INTO `timecheck` (`check_ID`, `login_date`, `login_time`, `logout_date`, 
 (9, '2019-12-03', '08:00:00', '2019-12-03', '17:00:00', 'Looged out', 9, 'On-time'),
 (10, '2019-12-04', '08:00:00', '2019-12-04', '17:00:00', 'Looged out', 9, 'On-time'),
 (11, '2019-12-05', '08:00:00', '2019-12-05', '17:00:00', 'Looged out', 9, 'On-time'),
-(12, '2019-12-16', '15:20:47', '2019-12-16', '15:31:56', 'Logged out', 1, NULL),
-(13, '2019-12-16', '15:21:06', '2019-12-16', '15:21:31', 'Logged out', 2, NULL);
+(12, '2019-12-16', '15:20:47', '2019-12-16', '15:31:56', 'Logged out', 1, 'On-time'),
+(13, '2019-12-16', '15:21:06', '2019-12-16', '15:21:31', 'Logged out', 2, 'On-time'),
+(32, '2020-01-16', '15:44:26', '2020-01-16', '15:45:13', 'Logged out', 1, 'On-time'),
+(33, '2020-01-16', '15:45:31', '2020-01-16', '15:47:41', 'Logged out', 2, 'On-time'),
+(34, '2020-01-16', '15:47:28', '2020-01-16', '15:47:33', 'Logged out', 3, 'On-time'),
+(35, '2020-01-16', '15:54:58', '2020-01-16', '15:55:22', 'Logged out', 4, 'On-time'),
+(36, '2020-01-17', '14:24:00', '2020-01-17', '15:55:22', 'Logged out', 1, 'Unscheduled Log-in'),
+(37, '2020-01-17', '15:40:12', '2020-01-17', '15:55:22', 'Logged-out', 1, 'Unscheduled Log-in'),
+(38, '2020-01-17', '15:41:46', '2020-01-17', '15:53:34', 'Logged out', 1, 'Unscheduled Log-in'),
+(39, '2020-01-17', '15:53:41', '2020-01-17', '15:58:02', 'Logged out', 1, 'Unscheduled Log-in'),
+(40, '2020-01-17', '21:00:00', '2020-01-17', '16:00:39', 'Logged out', 1, 'On-time'),
+(41, '2020-01-17', '21:00:00', '2020-01-17', '16:02:21', 'Logged out', 1, 'On-time'),
+(42, '2020-01-17', '16:02:26', '2020-01-17', '17:08:25', 'Logged out', 1, 'Early'),
+(43, '2020-01-17', '16:12:13', '2020-01-17', '18:30:38', 'Logged out', 11, 'On-time'),
+(44, '2020-01-17', '16:17:55', '2020-01-17', '18:39:21', 'Logged out', 2, 'Late'),
+(45, '2020-01-17', '12:00:17', '2020-01-17', '17:04:42', 'Logged out', 3, 'Late'),
+(46, '2020-01-17', '17:04:46', '2020-01-17', '17:04:56', 'Logged out', 3, 'Late'),
+(47, '2020-01-17', '12:00:39', '2020-01-17', '18:40:17', 'Logged out', 3, 'On-time'),
+(48, '2020-01-17', '18:31:36', '2020-01-17', '18:38:40', 'Logged out', 11, 'Late'),
+(49, '2020-01-17', '00:00:00', '2020-01-17', '18:40:03', 'Logged out', 5, 'Unscheduled Log-in'),
+(50, '2020-01-17', '00:00:00', '2020-01-17', '18:51:57', 'Logged out', 5, 'Unscheduled Log-in'),
+(51, '2020-01-17', '18:52:02', '2020-01-17', '18:52:05', 'Logged out', 5, 'Unscheduled Log-in');
 
 -- --------------------------------------------------------
 
@@ -270,7 +296,7 @@ ALTER TABLE `swaprequest`
 -- Constraints for table `timecheck`
 --
 ALTER TABLE `timecheck`
-  ADD CONSTRAINT `timecheck_ibfk_1` FOREIGN KEY (`user_ID`) REFERENCES `schedule` (`user_ID`);
+  ADD CONSTRAINT `timecheck_ibfk_1` FOREIGN KEY (`user_ID`) REFERENCES `user` (`user_ID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
