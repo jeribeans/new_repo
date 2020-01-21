@@ -66,8 +66,7 @@ if(isset($_POST['searchDate2'])){
                                                 
                                                 while($row = mysqli_fetch_assoc($viewDates)){
                                                     echo "<td><b>".date('M d - D', strtotime($row['sched_Date']))."</b></td>";
-
-
+                                                    
                                                 }
 
                                                 $viewshift =  mysqli_query($conn, "SELECT shift, shift_ID from shift");

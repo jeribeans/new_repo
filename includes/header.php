@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 	<html>
 		<head>
+			<link rel="icon" href="resources/img/logo.png">
 			<title>Attendance Checker System</title>
 		</head>
 	<body>

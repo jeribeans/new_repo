@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jan 17, 2020 at 11:16 AM
+-- Generation Time: Jan 21, 2020 at 12:40 PM
 -- Server version: 5.7.23
 -- PHP Version: 7.2.10
 
@@ -21,6 +21,30 @@ SET time_zone = "+00:00";
 --
 -- Database: `loginsystem`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `dtr`
+--
+
+DROP TABLE IF EXISTS `dtr`;
+CREATE TABLE IF NOT EXISTS `dtr` (
+  `dtr_ID` int(11) NOT NULL,
+  `dtr_Date` date NOT NULL,
+  `schedule_in` time NOT NULL,
+  `schedule_out` time NOT NULL,
+  `time_in` time DEFAULT NULL,
+  `time_out` time DEFAULT NULL,
+  `overtime` int(11) DEFAULT NULL,
+  `night_differential` int(11) DEFAULT NULL,
+  `overtime_night_differential` int(11) DEFAULT NULL,
+  `rest_day_overtime` int(11) DEFAULT NULL,
+  `status` varchar(45) NOT NULL,
+  `dtr_user_ID` int(11) NOT NULL,
+  PRIMARY KEY (`dtr_ID`),
+  KEY `dtr_user_ID` (`dtr_user_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -270,6 +294,12 @@ INSERT INTO `user` (`user_ID`, `employee_id`, `password`, `first_name`, `middle_
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `dtr`
+--
+ALTER TABLE `dtr`
+  ADD CONSTRAINT `dtr_ibfk_1` FOREIGN KEY (`dtr_user_ID`) REFERENCES `user` (`user_ID`);
 
 --
 -- Constraints for table `request`
