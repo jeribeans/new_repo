@@ -31,7 +31,7 @@
 
                 <li>
                     <a href="searchEmployee.php">
-                        <span>Search Employee Attendance</span>
+                        <span>Report/s</span>
                     </a>
                 </li>
 
